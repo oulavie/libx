@@ -1,0 +1,344 @@
+/* http://www.somacon.com/p142.php */
+
+body 
+{
+  margin: 0;
+  padding: 0;
+  background: #FEF9ED;
+  font-family: sans-serif;
+}
+
+.container {
+  padding-left: 115px;
+}
+
+.title {
+  color: DFC484;
+  background: #444444;
+}
+
+.main {
+  position: relative;
+  background: #F3F2E7;
+  padding: 2em 2em 2em 0;
+}
+
+#.main {
+  width: 98%;
+}
+
+.overflow {
+  width: 100%;
+  overflow: auto;
+}
+
+.menu {
+  width: 90px;
+  margin: 0;
+  font-size: 80%;
+  text-align: left;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  right: auto;
+  background: #444444;
+  color: C9783E;
+}
+
+.menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 0 0;
+  border-left: 2px solid #999;
+}
+
+.menu li {
+  margin-bottom: 3px;
+  padding: 2px 4px;
+  background: 444444;
+  color: DFC484;
+  font-weight: normal;
+}
+
+.menu li.active {
+  font-weight: bold;
+}
+
+.menu img {
+  width: 75px;
+  height: 90px;
+  border: 0;
+}
+
+.menu a { color: C9783E; display: block; }
+
+.archive {
+  position: relative;
+  background: #444444;
+}
+
+.search {
+  position: absolute;
+  top: .7em;
+  right: 2em;
+}
+
+form.search div#hint {
+  display: none;
+  position: absolute;
+  top: 40px;
+  right: 0px;
+  width: 190px;
+  padding: 5px;
+  background: #ffc;
+  font-size: 70%;
+  border: 1px solid yellow;
+  -moz-border-radius: 5px; /* this works only in camino/firefox */
+  -webkit-border-radius: 5px; /* this is just for Safari */
+}
+
+form.search:hover div#hint { display: block; }
+
+a { text-decoration:none; }
+.age { white-space:nowrap; }
+.date { white-space:nowrap; }
+.indexlinks { white-space:nowrap; }
+.parity0 { background-color: #FEF9ED; }
+.parity1 { background-color: #FCF8DC; }
+.plusline { color: green; }
+.minusline { color: #dc143c; } /* crimson */
+.atline { color: purple; }
+
+.navigate {
+  text-align: right;
+  font-size: 60%;
+  margin: 1em 0;
+}
+
+.tag {
+  color: #999;
+  font-size: 70%;
+  font-weight: normal;
+  margin-left: .5em;
+  vertical-align: baseline;
+}
+
+.branchhead {
+  color: #000;
+  font-size: 80%;
+  font-weight: normal;
+  margin-left: .5em;
+  vertical-align: baseline;
+}
+
+ul#graphnodes .branchhead {
+  font-size: 75%;
+}
+
+.branchname {
+  color: #000;
+  font-size: 60%;
+  font-weight: normal;
+  margin-left: .5em;
+  vertical-align: baseline;
+}
+
+h3 .branchname {
+  font-size: 80%;
+}
+
+/* Common */
+pre { margin: 0; }
+
+h2   { color:#FF0000; font-size: 0%; border-bottom: 1px solid #999; }
+h2 a { color:#C9783E; }
+h3   { margin-top: -.7em; font-size: 100%; }
+
+.calendar_header   { background:#FEF5CA; text-align:center; }
+.calendar_days     { background:#FEF5CA; }
+.calendar_today    { font-weight: bold; }
+.calendar_selected { font-weight: bold; color:#FF0000; }
+.calendar_we       { color:#AAAAAA; }
+
+/* log and tags tables */
+.bigtable {
+  border-bottom: 1px solid #999;
+  /*border-collapse: collapse;*/
+  font-size: 90%;
+  width: 100%;
+  font-weight: normal;
+  text-align: left;
+}
+
+.bigtable th { /*padding: 1px 4px;*/ border-bottom: 1px solid #999;}
+.bigtable tr {  }
+/*.bigtable tr { border: none; }*/
+.bigtable td { vertical-align: top;}
+.bigtable .select          { width: 2em; color:#538BC6; }
+.bigtable .date            { width: 11em; color:#538BC6; }
+.bigtable .where           { width:20px; color:#538BC6; text-align:left;}
+.bigtable .where a         { color:#538BC6; }
+.bigtable .who             { width:20px; color:#538BC6; text-align:left;}
+.bigtable .who a           { color:#538BC6; }
+.bigtable .when            { width:20px; color:#538BC6; text-align:left;}
+.bigtable .when  a         { color:#538BC6; }
+.bigtable .tags            { width:12em; color:#538BC6; text-align:left;}
+.bigtable .tags  a         { color:#538BC6; }
+.bigtable .percentage      { width:1em; color:#538BC6; text-align:left;}
+.bigtable .percentage a    { color:#538BC6; }
+.bigtable .test            { color:#538BC6; text-align: left;}
+.bigtable .test a          { color:#538BC6; }
+.bigtable .tr_before       { color:#538BC6; text-align:left; width:80px;}
+.bigtable .tr_before a     { color:#0000FF; }
+.bigtable .td_before       { color:#000000; text-align:left; width:80px;}
+.bigtable .td_before a     { color:#0000FF; }
+.bigtable .tr_testexec     { color:#538BC6; text-align:left;}
+.bigtable .tr_testexec a   { color:#0000FF; }
+.bigtable .td_testexec     { color:#000000; text-align:left;}
+.bigtable .td_testexec a   { color:#0000FF; }
+.bigtable .tr_resultats    { color:#538BC6; text-align:left;}
+.bigtable .tr_resultats a  { color:#0000FF; }
+.bigtable .td_resultats    { color:#000000; text-align:left;}
+.bigtable .td_resultats a  { color:#0000FF; }
+.bigtable .author          { width: 5em; color:#538BC6; }
+.bigtable .author a        { color:#538BC6; }
+.bigtable .node            { width: 5em; font-family: monospace; color:#538BC6; }
+.bigtable .permissions    { width: 8em; text-align: left; color:#538BC6; }
+.bigtable .size { width: 5em; text-align: right; }
+.bigtable .annotate { text-align: right; color:#538BC6; }
+.bigtable td.annotate { font-size: smaller; color:#538BC6; }
+.bigtable td.source { font-size: inherit; color:#538BC6; }
+
+.source, .sourcefirst, .sourcelast {
+  font-family: monospace;
+  white-space: pre;
+  padding: 1px 4px;
+  font-size: 90%;
+}
+.sourcefirst { border-bottom: 1px solid #999; font-weight: bold; }
+.sourcelast { border-top: 1px solid #999; }
+.source a { color: #999; font-size: smaller; font-family: monospace;}
+.bottomline { border-bottom: 1px solid #999; }
+
+.fileline { font-family: monospace; }
+.fileline img { border: 0; }
+
+.tagEntry .closed { color: #99f; }
+
+/* Changeset entry */
+#changesetEntry {
+  border-collapse: collapse;
+  font-size: 90%;
+  width: 100%;
+  margin-bottom: 1em;
+}
+
+#changesetEntry th {
+  padding: 1px 4px;
+  width: 4em;
+  text-align: right;
+  font-weight: normal;
+  color: #999;
+  margin-right: .5em;
+  vertical-align: top;
+}
+
+div.description {
+  border-left: 2px solid #999;
+  margin: 1em 0 1em 0;
+  padding: .3em;
+}
+
+/* Graph */
+div#wrapper {
+	position: relative;
+	border-top: 1px solid black;
+	border-bottom: 1px solid black;
+	margin: 0;
+	padding: 0;
+}
+
+canvas {
+	position: absolute;
+	z-index: 5;
+	top: -0.7em;
+	margin: 0;
+}
+
+ul#graphnodes {
+	position: absolute;
+	z-index: 10;
+	top: -1.0em;
+	list-style: none inside none;
+	padding: 0;
+}
+
+ul#nodebgs {
+	list-style: none inside none;
+	padding: 0;
+	margin: 0;
+	top: -0.7em;
+}
+
+ul#graphnodes li, ul#nodebgs li {
+	height: 39px;
+}
+
+ul#graphnodes li .info {
+	display: block;
+	font-size: 70%;
+	position: relative;
+	top: -3px;
+}
+
+
+.input
+   {font-size:10.0pt;
+   font-family:"Courier New";
+   color:#555555;
+   background:#FFE4C4}
+t1
+   {font-size:10.0pt;
+   font-family:"Courier New";
+   color:#FFFFFF;
+   background:#D2B48C}
+
+.output
+   {font-size:10.0pt;
+   font-family:"Courier New";
+   color:#555555;
+   background:#E2D8DD}
+t2
+   {font-size:10.0pt;
+   font-family:"Courier New";
+   color:#FFFFFF;
+   background:#B4A0AA}
+
+/* #reponses{text-align:left;clear:both;margin:0 0 .5em 0;padding:2.5em 0 1em 0;} */
+#reponses{text-align:left;clear:both;}
+#reponses a{border:1px solid #999;text-decoration:none;background:white;}
+#reponses a:hover{background:#3774D0;color:white;}
+#reponses a,
+#reponses span{padding:.3em .5em;}
+#reponses a.pn{border:1px solid #fff;}
+#reponses a.pn b{font-weight:normal;}
+#reponses a.pn:hover{border:1px solid #999;}
+#reponses p{color:#999;}
+/*#reponses a{line-height: 2.5em;)*/
+
+/* #pagination{text-align:center;clear:both;margin:0 0 .5em 0;padding:2.5em 0 1em 0;border-top:1px solid #DDD;} */
+/* #pagination{text-align:left;clear:both;margin:0 0 .5em 0;padding:2.5em 0 1em 0;} */
+#pagination{text-align:left;clear:both;}
+#pagination a{border:1px solid #999;text-decoration:none;background:white;}
+#pagination a:hover{background:#3774D0;color:white;}
+#pagination a,
+#pagination span{padding:.3em .5em;}
+#pagination a.pn{border:1px solid #fff;}
+#pagination a.pn b{font-weight:normal;}
+#pagination a.pn:hover{border:1px solid #999;}
+#pagination p{color:#999;}
+#pagination a{line-height: 2.5em;)
+
+
+
+

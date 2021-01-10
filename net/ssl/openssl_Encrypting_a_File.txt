@@ -1,0 +1,93 @@
+
+
+Encrypting a File from the Command Line
+
+In terminal, suppose you wanted to encrypt a file with a password (symmetric key encryption).
+
+To do this using the OpenSSL command line tool, you could run this:
+
+openssl aes-128-cbc -in Archive.zip -out Archive.zip.aes128
+
+To decrypt it (notice the addition of the -d flag that triggers a decrypt instead of an encrypt action):
+
+openssl aes-128-cbc -d -in Archive.zip.aes128 -out Archive.zip
+
+This example uses the Advanced Encryption Standard (AES) cipher in cipher-block chaining mode. The file is very strongly encrypted for normal purposes assuming that you picked a good passphrase.
+
+According to Bruce Schneier, “…for new applications I suggest that people don’t use AES-256. AES-128 provides more than enough security margin for the foreseeable future. But if you’re already using AES-256, there’s no reason to change” (Another New AES Attack, July 30, 2009).
+Built into Ruby and PHP
+
+The OpenSSL library is a very standardized open source security library. It’s built into the majority of platforms, including Mac OS X, Linux, FreeBSD, iOS, and Android. Compatible SSL libraries are also built into Java and even the Microsoft platforms.
+
+In future articles, we will explore the usage of OpenSSL for encryption and verification in website projects. In the mean time, check out these API references for both PHP and Ruby.
+
+    OpenSSL Support in PHP
+    OpenSSL in Ruby 1.9.2 for your Ruby on Rails
+
+Impressive Array of Options
+
+On my Mac OS X system, the default openssl install supports and impressive set of 49 algorithms to choose from.
+
+    aes-128-cbc
+    aes-128-ecb
+    aes-192-cbc
+    aes-192-ecb
+    aes-256-cbc
+    aes-256-ecb
+    base64
+    bf
+    bf-cbc
+    bf-cfb
+    bf-ecb
+    bf-ofb
+    camellia-128-cbc
+    camellia-128-ecb
+    camellia-192-cbc
+    camellia-192-ecb
+    camellia-256-cbc
+    camellia-256-ecb
+    cast
+    cast-cbc
+    cast5-cbc
+    cast5-cfb
+    cast5-ecb
+    cast5-ofb
+    des
+    des-cbc
+    des-cfb
+    des-ecb
+    des-ede
+    des-ede-cbc
+    des-ede-cfb
+    des-ede-ofb
+    des-ede3
+    des-ede3-cbc
+    des-ede3-cfb
+    des-ede3-ofb
+    des-ofb
+    des3
+    desx
+    idea
+    idea-cbc
+    idea-cfb
+    idea-ecb
+    idea-ofb
+    rc2
+    rc2-40-cbc
+    rc2-64-cbc
+    rc2-cbc
+    rc2-cfb
+    rc2-ecb
+    rc2-ofb
+    rc4
+    rc4-40
+    seed
+    seed-cbc
+    seed-cfb
+    seed-ecb
+    seed-ofb
+    zlib
+
+This truly is the swiss army knife of encryption tools. You should use it too.
+
+

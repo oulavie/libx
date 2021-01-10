@@ -1,0 +1,76 @@
+
+
+
+----------------------------------------------------------------------------------------------------------------------------
+fullname@pop-os:~/tmp$ nslookup
+> set q=mx
+> gmail.com
+Server:         127.0.0.53
+Address:        127.0.0.53#53
+
+Non-authoritative answer:
+gmail.com       mail exchanger = 20 alt2.gmail-smtp-in.l.google.com.
+gmail.com       mail exchanger = 10 alt1.gmail-smtp-in.l.google.com.
+gmail.com       mail exchanger = 5 gmail-smtp-in.l.google.com.
+gmail.com       mail exchanger = 40 alt4.gmail-smtp-in.l.google.com.
+gmail.com       mail exchanger = 30 alt3.gmail-smtp-in.l.google.com.
+
+Authoritative answers can be found from:
+> exit
+----------------------------------------------------------------------------------------------------------------------------
+fullname@pop-os:~/tmp$ telnet alt1.gmail-smtp-in.l.google.com 25
+Trying 2a00:1450:4010:c03::1b...
+Connected to alt1.gmail-smtp-in.l.google.com.
+Escape character is '^]'.
+220 mx.google.com ESMTP e18si1979435ljj.156 - gsmtp
+HELO me
+250 mx.google.com at your service
+MAIL FROM: <perenoel@polenord.com>
+250 2.1.0 OK e18si1979435ljj.156 - gsmtp
+RCPT TO:<philippe.boulerne@gmail.com>
+250 2.1.5 OK e18si1979435ljj.156 - gsmtp
+DATA
+354  Go ahead e18si1979435ljj.156 - gsmtp
+Subject: Email du Pere Noel
+From: Pere Noel
+To: Philippe Boulerne
+
+toto
+.
+550-5.7.1 [2a01:cb18:7c2:4d00:16b:c8d3:acba:b94] Our system has detected that
+550-5.7.1 this message does not meet IPv6 sending guidelines regarding PTR
+550-5.7.1 records and authentication. Please review
+550-5.7.1  https://support.google.com/mail/?p=IPv6AuthError for more information
+550 5.7.1 . e18si1979435ljj.156 - gsmtp
+Connection closed by foreign host.
+fullname@pop-os:~/tmp$ 
+----------------------------------------------------------------------------------------------------------------------------
+fullname@pop-os:~/tmp/libpbx/net/mam$ nslookup -type=mx gmail.com
+Server:         127.0.0.53
+Address:        127.0.0.53#53
+
+Non-authoritative answer:
+gmail.com       mail exchanger = 20 alt2.gmail-smtp-in.l.google.com.
+gmail.com       mail exchanger = 5 gmail-smtp-in.l.google.com.
+gmail.com       mail exchanger = 30 alt3.gmail-smtp-in.l.google.com.
+gmail.com       mail exchanger = 40 alt4.gmail-smtp-in.l.google.com.
+gmail.com       mail exchanger = 10 alt1.gmail-smtp-in.l.google.com.
+
+Authoritative answers can be found from:
+
+fullname@pop-os:~/tmp/libpbx/net/mam$ 
+----------------------------------------------------------------------------------------------------------------------------
+fullname@pop-os:~/tmp/libpbx/net/mam$ nslookup -query=any gmail.com
+Server:         127.0.0.53
+Address:        127.0.0.53#53
+
+Non-authoritative answer:
+gmail.com       mail exchanger = 10 alt1.gmail-smtp-in.l.google.com.
+gmail.com       mail exchanger = 30 alt3.gmail-smtp-in.l.google.com.
+gmail.com       mail exchanger = 20 alt2.gmail-smtp-in.l.google.com.
+gmail.com       mail exchanger = 5 gmail-smtp-in.l.google.com.
+gmail.com       mail exchanger = 40 alt4.gmail-smtp-in.l.google.com.
+----------------------------------------------------------------------------------------------------------------------------
+nslookup -query=any yahoo.com
+nslookup -type=ptr A.B.C.D
+

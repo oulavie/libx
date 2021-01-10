@@ -1,0 +1,1362 @@
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+<script language="JavaScript"> 
+<!--
+function menuderoulant(theForm) {
+         theForm.submit();
+   }
+//-->
+</script> 
+<script type="text/javascript" src="/releasemgr/calendar/calendar.js"></script> 
+<script type="text/javascript" src="/releasemgr/calendar/calendarHelper.js"></script> 
+<script type="text/javascript" src="/releasemgr/calendar/calendar-i18n.jsp"></script> 
+<!--       Ajout filtre avec combo                       --> 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+<html> 
+<head> 
+    <title>Absences</title> 
+    <link rel="stylesheet" href="/releasemgr/default.css"> 
+    <link rel="stylesheet" href="/releasemgr/calendar/calendar-win2k-cold-1.css"> 
+    <script type="text/javascript" src="/releasemgr/jsFunction.jsp"></script> 
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+</head> 
+ 
+<body bgcolor="#FFFFFF"> 
+    <div class="page_header"> 
+ 
+ 
+ 
+ 
+ 
+ 
+<table width="100%"> 
+	<tr> 
+		<td width="50%"> 
+			<h1>Release Manager</h1> 
+		</td> 
+		<td width="50%" align="right"> 
+			<img src="/releasemgr/images/logo_mx_tmx_150_fr.jpg" border="0"> 
+		</td> 
+	</tr> 
+</table> 
+ 
+</div> 
+    <div class="page_body"> 
+   
+   
+   
+   <form action='/releasemgr/do/search/id' name='searchForm'><table bgcolor='#CCCCCC' width='100%' border='0' class='navbar' border='0' cellpadding='0' cellspacing='0'><tr><td><a href='/releasemgr/do/search/change'>Changes</a> | <a href='/releasemgr/do/view/newChanges'>New Changes</a> | <a href='/releasemgr/do/view/person?oid=8893'>Me</a> | <a href='/releasemgr/do/view/people'>People</a> | <a href='/releasemgr/do/search/delivery'>Deliveries</a> | <a href='/releasemgr/do/view/projects'>Projects</a> | <a href='/releasemgr/do/view/tasks'>My Tasks</a> | <a href='/releasemgr/do/view/filters'>My Filters</a> | <a href='/releasemgr/do/view/views'>My Views</a> | <a href='/releasemgr/do/view/all_tasks'>All Tasks</a> | <a href='/releasemgr/do/view/absences'>Absences</a> | <a href='/releasemgr/do/view/reports/modules'>Reports</a></td><td align='right'><span class='idsearch'>Search: <input type='text' size='10' name='searchedId' value=""> <select name='searchType'><option value='Number'>Number</option><option value='Title'>Title</option><option value='Related change'>Related change</option><option value='Short description'>Short description</option><option value='Description'>Description</option><option value='Id'>Id</option><option value='Code'>Code</option></select> <input type='submit' name='action' value='Find'/> </span> </td></tr></table></form> 
+   </p><span class="title">Absences</span><br> 
+   <table> 
+      <tr> 
+         <td> 
+      	<table valign="top"> 
+<!--      	<tr>   AND absence.endDate >= current_date() AND absence.ressource.id = 8893  </tr>--> 
+      	   <tr> 
+      	      <td> 
+         	      <form method="get" action="/releasemgr/do/view/absences" name="absenceForm"> 
+            	      
+            	      <b>Filters :</b> 
+            	      <select name="filterId" onChange="menuderoulant(this.form)"> 
+                        <option value="0">No Filter</option>   
+               	      
+	               	      
+	               	         <option value="1" selected>Active and Upcoming</option> 
+	               	      
+	               	      
+               	      
+            	      </select> 
+         	      </form> 
+      	      </td> 
+               <td align="right">                  
+         		   <form method="post" action="/releasemgr/do/view/absences?filterId=1" name="changesForm2"> 
+         		      <input type="submit" value="Active and Upcoming"> 
+         		   </form> 
+      	      </td> 
+      	      <td align="right"> 
+      	         <form method="post" action="/releasemgr/do/edit/setfilterDefault" name="edit/setfilterDefault"> 
+         	         <input type="hidden" name = "filterId" value="1"/> 
+         	         <input type="hidden" name = "returnto" value="absence"/> 
+         	         <input type="submit" value="Set as default filter"/> 
+      	         </form> 
+      	      </td> 
+            </tr> 
+            <tr> 
+               <td><b>Refine by...</b></td> 
+            </tr> 
+         </table> 
+         </td> 
+      </tr> 
+      <tr> 
+         <table class="editor"> 
+            <tr> 
+               
+               <form method="post" action="/releasemgr/do/view/absences" name="view/absences"> 
+               <input type="hidden" name = "filterId" value="1"/> 
+               <input type="hidden" name = "returnto" value="absence"/> 
+               <td> 
+                  <input type="hidden" name="all" value="yes"> 
+                  <input type="hidden" name="inquery" value="yes"> 
+                  <b>Ressource</b> 
+               </td> 
+               <td> 
+         			<select name="ressourceId"> 
+         			<option value="">ALL</option> 
+         			
+         			      <option value="8799" >Abenhaim, Graziella </option>     
+         			   
+         			
+         			      <option value="8751" >ABU-GHOSH, Husam </option>     
+         			   
+         			
+         			      <option value="8886" >Acker, Lex </option>     
+         			   
+         			
+         			      <option value="8750" >AH-YOON, Cosette </option>     
+         			   
+         			
+         			      <option value="8925" >Alkhalaf, Muchid </option>     
+         			   
+         			
+         			      <option value="8890" >Apostolakos, Nick </option>     
+         			   
+         			
+         			      <option value="8939" >Ata, Jean </option>     
+         			   
+         			
+         			      <option value="8371" >Auger, Pierre </option>     
+         			   
+         			
+         			      <option value="8867" >Awanda, Daniel </option>     
+         			   
+         			
+         			      <option value="8965" >Barbara, Paul </option>     
+         			   
+         			
+         			      <option value="8921" >Barbara, Michael </option>     
+         			   
+         			
+         			      <option value="8874" >Barroga, Renante </option>     
+         			   
+         			
+         			      <option value="8833" >BATHALON, Éric </option>     
+         			   
+         			
+         			      <option value="8933" >Beauchemin, René </option>     
+         			   
+         			
+         			      <option value="8752" >BEAULIEU, René </option>     
+         			   
+         			
+         			      <option value="8945" >Beauséjour, Francis </option>     
+         			   
+         			
+         			      <option value="8753" >BÉLANGER, Colette </option>     
+         			   
+         			
+         			      <option value="25" >Béliveau, Martin </option>     
+         			   
+         			
+         			      <option value="30" >Béliveau, Serge </option>     
+         			   
+         			
+         			      <option value="8815" >BERGERON, Christian </option>     
+         			   
+         			
+         			      <option value="8856" >Bertiaux, Juliette </option>     
+         			   
+         			
+         			      <option value="35" >Bertrand, Jean-Francois </option>     
+         			   
+         			
+         			      <option value="8832" >BERTRAND, J. -François </option>     
+         			   
+         			
+         			      <option value="8976" >Bertrand, David </option>     
+         			   
+         			
+         			      <option value="40" >Bessette, Robert </option>     
+         			   
+         			
+         			      <option value="8941" >Blondeau, Francis </option>     
+         			   
+         			
+         			      <option value="8839" >Boisvert, Stéphane </option>     
+         			   
+         			
+         			      <option value="8821" >BOLDUC, Gérald </option>     
+         			   
+         			
+         			      <option value="6139" >Bouchard, Frédéric </option>     
+         			   
+         			
+         			      <option value="8747" >BOUCHARD, Kevin </option>     
+         			   
+         			
+         			      <option value="8844" >Bouchard, Jean-Hugues </option>     
+         			   
+         			
+         			      <option value="8359" >Bouffard, Christian </option>     
+         			   
+         			
+         			      <option value="8842" >Bouhamdi, Abdelkader </option>     
+         			   
+         			
+         			      <option value="8893" selected>Boulerne, Philippe </option>       
+         			   
+         			
+         			      <option value="8730" >Bourassa, François </option>     
+         			   
+         			
+         			      <option value="8808" >BOURBONNIÈRE, Richard </option>     
+         			   
+         			
+         			      <option value="8811" >BOURCIER, Mark </option>     
+         			   
+         			
+         			      <option value="8895" >Boyle, Colm </option>     
+         			   
+         			
+         			      <option value="8754" >BRADLEY, Robert </option>     
+         			   
+         			
+         			      <option value="6421" >Breton, Marc </option>     
+         			   
+         			
+         			      <option value="8927" >Breton, Francois </option>     
+         			   
+         			
+         			      <option value="8917" >Brunelle, Julie </option>     
+         			   
+         			
+         			      <option value="8985" >Brunst, Julian </option>     
+         			   
+         			
+         			      <option value="8857" >Buono, Giuseppe </option>     
+         			   
+         			
+         			      <option value="8875" >Cabana, Gordon </option>     
+         			   
+         			
+         			      <option value="8755" >CAISSEY, Debbie </option>     
+         			   
+         			
+         			      <option value="8885" >Campeau, Paul </option>     
+         			   
+         			
+         			      <option value="8920" >Caraballo, Pascual  </option>     
+         			   
+         			
+         			      <option value="8801" >CARBY, Lenworth </option>     
+         			   
+         			
+         			      <option value="8756" >CARPENTIER, Susie </option>     
+         			   
+         			
+         			      <option value="8898" >Cere, Michel </option>     
+         			   
+         			
+         			      <option value="8820" >CHAPOTARD, Jean-Marc </option>     
+         			   
+         			
+         			      <option value="8862" >Chapotard, Jean-Marc </option>     
+         			   
+         			
+         			      <option value="8915" >Chappo, Jeffery </option>     
+         			   
+         			
+         			      <option value="8981" >Charest, Jean-Sébastien </option>     
+         			   
+         			
+         			      <option value="8896" >Charlebois, Étienne </option>     
+         			   
+         			
+         			      <option value="45" >Chauvineau, Olivier </option>     
+         			   
+         			
+         			      <option value="5925" >Chemin, Olivier </option>     
+         			   
+         			
+         			      <option value="8758" >CHITTI, Michael </option>     
+         			   
+         			
+         			      <option value="8717" >Christodoulakis, Polizoï </option>     
+         			   
+         			
+         			      <option value="8873" >Chunnoo, Vishal </option>     
+         			   
+         			
+         			      <option value="8935" >Clement, Robin </option>     
+         			   
+         			
+         			      <option value="55" >Cloutier, Guillaume </option>     
+         			   
+         			
+         			      <option value="8940" >Cloutier, Stephane </option>     
+         			   
+         			
+         			      <option value="8814" >COCHE, Francis </option>     
+         			   
+         			
+         			      <option value="8738" >COMPTE, Benoît </option>     
+         			   
+         			
+         			      <option value="8911" >Correia, Evelyn </option>     
+         			   
+         			
+         			      <option value="8837" >Corriveau, Cynthia </option>     
+         			   
+         			
+         			      <option value="8822" >CÔTÉ, Marc-Éric </option>     
+         			   
+         			
+         			      <option value="8759" >DAÏ, Sabine </option>     
+         			   
+         			
+         			      <option value="8725" >Dallaire, Serge </option>     
+         			   
+         			
+         			      <option value="8947" >Daneau, Unknow </option>     
+         			   
+         			
+         			      <option value="8942" >Dao, Ba Loc </option>     
+         			   
+         			
+         			      <option value="8760" >Debane, Marc </option>     
+         			   
+         			
+         			      <option value="8761" >DENIS, Jean-Luc </option>     
+         			   
+         			
+         			      <option value="8907" >Deschambault, Eric </option>     
+         			   
+         			
+         			      <option value="2383" >Desharnais, Patrick </option>     
+         			   
+         			
+         			      <option value="8879" >Desjardins, Guy </option>     
+         			   
+         			
+         			      <option value="8757" >desk, help </option>     
+         			   
+         			
+         			      <option value="8872" >Desmarais, Yves </option>     
+         			   
+         			
+         			      <option value="8869" >DIAKHABY, Mamadou </option>     
+         			   
+         			
+         			      <option value="8803" >DIDIER, Yann </option>     
+         			   
+         			
+         			      <option value="8916" >DiGenova, John </option>     
+         			   
+         			
+         			      <option value="8894" >Docao, Frederic </option>     
+         			   
+         			
+         			      <option value="8943" >Doiron, Michel </option>     
+         			   
+         			
+         			      <option value="8880" >Duchaine, Bernard </option>     
+         			   
+         			
+         			      <option value="8841" >Ducret, Frederic </option>     
+         			   
+         			
+         			      <option value="8868" >Dupont, Alain </option>     
+         			   
+         			
+         			      <option value="8838" >Dutrisac, Jocelyn </option>     
+         			   
+         			
+         			      <option value="8762" >EGSEEM, Nabil </option>     
+         			   
+         			
+         			      <option value="8989" >Egseem, Nabil </option>     
+         			   
+         			
+         			      <option value="8827" >Favreau, Michel </option>     
+         			   
+         			
+         			      <option value="8850" >Fenelon, Ralph </option>     
+         			   
+         			
+         			      <option value="8716" >FERHAT, Mohamed </option>     
+         			   
+         			
+         			      <option value="8047" >Fleury, Jean-Bernard </option>     
+         			   
+         			
+         			      <option value="8864" >Flibotte, Réjean </option>     
+         			   
+         			
+         			      <option value="8813" >FONTAINE, Daniel </option>     
+         			   
+         			
+         			      <option value="8926" >Ford, Mike </option>     
+         			   
+         			
+         			      <option value="8763" >FORTIN, Raymond </option>     
+         			   
+         			
+         			      <option value="8944" >Fortin, Mathieu </option>     
+         			   
+         			
+         			      <option value="8905" >Fournier, Guillaume </option>     
+         			   
+         			
+         			      <option value="8790" >Free, BOX </option>     
+         			   
+         			
+         			      <option value="8918" >Gagnon, Francis </option>     
+         			   
+         			
+         			      <option value="6431" >Garceau, Stephane </option>     
+         			   
+         			
+         			      <option value="8964" >Garceau, Kevin </option>     
+         			   
+         			
+         			      <option value="8971" >Gauthier, Nicolas </option>     
+         			   
+         			
+         			      <option value="8845" >Gendreau, Alain </option>     
+         			   
+         			
+         			      <option value="8804" >GÉNÉREUX, Éric </option>     
+         			   
+         			
+         			      <option value="8967" >Geoffroy, Guylaine </option>     
+         			   
+         			
+         			      <option value="50" >Germain-Bonne, Thierry </option>     
+         			   
+         			
+         			      <option value="8995" >GIARD, Eric </option>     
+         			   
+         			
+         			      <option value="8866" >Gibeault, François </option>     
+         			   
+         			
+         			      <option value="7172" >Gilbert, Alain </option>     
+         			   
+         			
+         			      <option value="8983" >Giles, Brendan </option>     
+         			   
+         			
+         			      <option value="8728" >Giral, David </option>     
+         			   
+         			
+         			      <option value="60" >Girard, Stephane </option>     
+         			   
+         			
+         			      <option value="8948" >Girard, Sophie </option>     
+         			   
+         			
+         			      <option value="8823" >GOMES, Alexandre </option>     
+         			   
+         			
+         			      <option value="8954" >Gougeon, Boris </option>     
+         			   
+         			
+         			      <option value="8836" >Gregoire, Marie-Gaëlle </option>     
+         			   
+         			
+         			      <option value="8960" >Grenier, Félix </option>     
+         			   
+         			
+         			      <option value="8892" >Grondin, Pierre </option>     
+         			   
+         			
+         			      <option value="8972" >Grondin, Serge </option>     
+         			   
+         			
+         			      <option value="8764" >GROULX, Martin </option>     
+         			   
+         			
+         			      <option value="8860" >GUELTAS, Gilles </option>     
+         			   
+         			
+         			      <option value="8831" >GUERIS, Olivier </option>     
+         			   
+         			
+         			      <option value="8732" >Guidoin, Stéphane </option>     
+         			   
+         			
+         			      <option value="65" >Guilbault, Jean </option>     
+         			   
+         			
+         			      <option value="8986" >Guo, Tony </option>     
+         			   
+         			
+         			      <option value="8957" >Hamel, Nathalie </option>     
+         			   
+         			
+         			      <option value="8952" >Hamel, Karim </option>     
+         			   
+         			
+         			      <option value="8936" >Hamel, Stephane </option>     
+         			   
+         			
+         			      <option value="3454" >Hamelin, Francine </option>     
+         			   
+         			
+         			      <option value="8765" >HAMELIN, Richard </option>     
+         			   
+         			
+         			      <option value="8955" >Haralabopoulos, Costas </option>     
+         			   
+         			
+         			      <option value="8766" >HelpDesk, BOX </option>     
+         			   
+         			
+         			      <option value="8930" >Herdea, Razvan </option>     
+         			   
+         			
+         			      <option value="8843" >Hofer, Robert </option>     
+         			   
+         			
+         			      <option value="8924" >Hohn, James </option>     
+         			   
+         			
+         			      <option value="8788" >Hotline, Support Télécom </option>     
+         			   
+         			
+         			      <option value="8888" >Hounsokou, Franck </option>     
+         			   
+         			
+         			      <option value="8739" >HOURIHAN, Kevin </option>     
+         			   
+         			
+         			      <option value="8840" >Huot, Benoît </option>     
+         			   
+         			
+         			      <option value="8377" >Imperatori, Norman </option>     
+         			   
+         			
+         			      <option value="8809" >IONESCU, André </option>     
+         			   
+         			
+         			      <option value="8731" >iuliani, Luigi </option>     
+         			   
+         			
+         			      <option value="8740" >JOHNSON, Eric </option>     
+         			   
+         			
+         			      <option value="8934" >Jonas, Thierry </option>     
+         			   
+         			
+         			      <option value="8846" >juzalaitis, joanne </option>     
+         			   
+         			
+         			      <option value="8961" >Kamieniarz, Christophe </option>     
+         			   
+         			
+         			      <option value="8938" >Kham, Chen </option>     
+         			   
+         			
+         			      <option value="8956" >Kilvidi, Sridaran </option>     
+         			   
+         			
+         			      <option value="8830" >KIM, Annah </option>     
+         			   
+         			
+         			      <option value="6443" >Kin-Leong, David </option>     
+         			   
+         			
+         			      <option value="8979" >Klinowski, Paul </option>     
+         			   
+         			
+         			      <option value="8878" >KOFFI, Jean-Daniel </option>     
+         			   
+         			
+         			      <option value="8767" >KORMAS, George </option>     
+         			   
+         			
+         			      <option value="8768" >KRIVOKUCHA, Lara </option>     
+         			   
+         			
+         			      <option value="8737" >KURDI, Anne-Marie </option>     
+         			   
+         			
+         			      <option value="8908" >Ky, Valentin </option>     
+         			   
+         			
+         			      <option value="8990" >Labelle, Marc-André </option>     
+         			   
+         			
+         			      <option value="8724" >Lachance, Jean-Luc </option>     
+         			   
+         			
+         			      <option value="8978" >Lafaille, Robert </option>     
+         			   
+         			
+         			      <option value="2003" >Laflamme, Josée </option>     
+         			   
+         			
+         			      <option value="8852" >LAFONT, Sophie </option>     
+         			   
+         			
+         			      <option value="8922" >Lagha, Fella </option>     
+         			   
+         			
+         			      <option value="8769" >LAMBERT, François </option>     
+         			   
+         			
+         			      <option value="8854" >Lamonde, Bernard </option>     
+         			   
+         			
+         			      <option value="2614" >Lamoureux, Alexandre </option>     
+         			   
+         			
+         			      <option value="8891" >Lamy, Claude </option>     
+         			   
+         			
+         			      <option value="8953" >Lanka, Bhamini </option>     
+         			   
+         			
+         			      <option value="70" >Lapierre, Sebastien </option>     
+         			   
+         			
+         			      <option value="8828" >LAPOINTE, René </option>     
+         			   
+         			
+         			      <option value="8805" >LAPRADE, Michel </option>     
+         			   
+         			
+         			      <option value="8829" >LARIN, Josée </option>     
+         			   
+         			
+         			      <option value="8726" >Laroche, Christiane </option>     
+         			   
+         			
+         			      <option value="8851" >Latourelle, Marie-Claude </option>     
+         			   
+         			
+         			      <option value="8931" >Lavoie, Jean </option>     
+         			   
+         			
+         			      <option value="6209" >Le Couffe, Carolle </option>     
+         			   
+         			
+         			      <option value="8734" >Leclair, Robert </option>     
+         			   
+         			
+         			      <option value="8770" >LECLAIR, Louise </option>     
+         			   
+         			
+         			      <option value="8798" >LEFRANCOIS, Linda </option>     
+         			   
+         			
+         			      <option value="8729" >LeGuehennec, Erik </option>     
+         			   
+         			
+         			      <option value="8771" >LEPAGE, Josée </option>     
+         			   
+         			
+         			      <option value="8817" >LESSARD, Denis </option>     
+         			   
+         			
+         			      <option value="8901" >Leveille, Patrick </option>     
+         			   
+         			
+         			      <option value="8835" >Levy, Myriam </option>     
+         			   
+         			
+         			      <option value="8772" >LIMA, Vince </option>     
+         			   
+         			
+         			      <option value="8791" >Line, CDCC </option>     
+         			   
+         			
+         			      <option value="8962" >Lopez Faguaga, Ana Laura </option>     
+         			   
+         			
+         			      <option value="8949" >Losier, Martin </option>     
+         			   
+         			
+         			      <option value="8819" >LOUMEAU, Philippe </option>     
+         			   
+         			
+         			      <option value="8719" >Lupien, Lucie </option>     
+         			   
+         			
+         			      <option value="8897" >Lupien, Stéphane </option>     
+         			   
+         			
+         			      <option value="8988" >Mailhot, Ghislain </option>     
+         			   
+         			
+         			      <option value="8773" >MALWATTA, Akila </option>     
+         			   
+         			
+         			      <option value="8970" >Mandjee, Yakim </option>     
+         			   
+         			
+         			      <option value="8774" >MARCOUX, Pierre </option>     
+         			   
+         			
+         			      <option value="8775" >MARQUIS, Jean-Guy </option>     
+         			   
+         			
+         			      <option value="8876" >Marsan, Benoit </option>     
+         			   
+         			
+         			      <option value="8900" >Martin, Nancy </option>     
+         			   
+         			
+         			      <option value="8084" >Martineau, David </option>     
+         			   
+         			
+         			      <option value="8741" >MARX, Jeff </option>     
+         			   
+         			
+         			      <option value="8776" >MASTCHENKO, Cyrille </option>     
+         			   
+         			
+         			      <option value="8777" >MASTROCOLA, Marco </option>     
+         			   
+         			
+         			      <option value="8736" >Mathieu, Luc </option>     
+         			   
+         			
+         			      <option value="8855" >Mathieu, Alexandre </option>     
+         			   
+         			
+         			      <option value="8742" >McDADE, Mike </option>     
+         			   
+         			
+         			      <option value="8810" >McMeekin, Karen </option>     
+         			   
+         			
+         			      <option value="8779" >MEDJEBER, Mohamed </option>     
+         			   
+         			
+         			      <option value="8778" >MENSAH, Samira </option>     
+         			   
+         			
+         			      <option value="8727" >Mercier, Clinton </option>     
+         			   
+         			
+         			      <option value="8745" >MIEDANER, Carl </option>     
+         			   
+         			
+         			      <option value="8968" >Milot, Bertrand </option>     
+         			   
+         			
+         			      <option value="8980" >Mitchell, Karen </option>     
+         			   
+         			
+         			      <option value="8951" >Montredon, Myriam </option>     
+         			   
+         			
+         			      <option value="8780" >MORIN, Françoise </option>     
+         			   
+         			
+         			      <option value="8929" >Morisset, Jean-Sebastien </option>     
+         			   
+         			
+         			      <option value="8800" >MORLON, Patrick </option>     
+         			   
+         			
+         			      <option value="8975" >Morrison, Fiona </option>     
+         			   
+         			
+         			      <option value="75" >Mrozek, Andrzej </option>     
+         			   
+         			
+         			      <option value="8781" >Mtl, BOX </option>     
+         			   
+         			
+         			      <option value="8824" >Nadeau, Billy </option>     
+         			   
+         			
+         			      <option value="8797" >NANDLALL, Charles </option>     
+         			   
+         			
+         			      <option value="8963" >Nguyen, Kim Thanh </option>     
+         			   
+         			
+         			      <option value="8883" >Nicholson, Bruce </option>     
+         			   
+         			
+         			      <option value="8782" >NIEJADLIK, Michael </option>     
+         			   
+         			
+         			      <option value="8902" >Normandin, Eric </option>     
+         			   
+         			
+         			      <option value="8720" >Ntamwishimiro, Francine </option>     
+         			   
+         			
+         			      <option value="8909" >Paul, Jean Gordon </option>     
+         			   
+         			
+         			      <option value="8903" >Pedron, Ilario </option>     
+         			   
+         			
+         			      <option value="8783" >PELLAND, Louis-Paul </option>     
+         			   
+         			
+         			      <option value="8974" >Pereira, Paulo </option>     
+         			   
+         			
+         			      <option value="8977" >Perreau, Guillaume </option>     
+         			   
+         			
+         			      <option value="8733" >Pietri, Séverin </option>     
+         			   
+         			
+         			      <option value="8784" >PIMENTEL, Mary </option>     
+         			   
+         			
+         			      <option value="8849" >pontailler, nicolas </option>     
+         			   
+         			
+         			      <option value="8812" >POUPART, Edwige </option>     
+         			   
+         			
+         			      <option value="8785" >PRACHE, Hélène </option>     
+         			   
+         			
+         			      <option value="8744" >PROCTOR, Brian </option>     
+         			   
+         			
+         			      <option value="8786" >PRUNEAU, Frederic </option>     
+         			   
+         			
+         			      <option value="2037" >Rameur, Prog </option>     
+         			   
+         			
+         			      <option value="8825" >RATTÉ, Alexandre </option>     
+         			   
+         			
+         			      <option value="8365" >Remin, Yannick </option>     
+         			   
+         			
+         			      <option value="8973" >Renaud, Francis </option>     
+         			   
+         			
+         			      <option value="8992" >reuse, reuse </option>     
+         			   
+         			
+         			      <option value="8818" >Rhéaume, Réjean </option>     
+         			   
+         			
+         			      <option value="2377" >Rizk, Carlos </option>     
+         			   
+         			
+         			      <option value="8858" >Roberge, Louis-Jasmin </option>     
+         			   
+         			
+         			      <option value="80" >Rodriguez, Dominique </option>     
+         			   
+         			
+         			      <option value="8966" >Ross, Francois </option>     
+         			   
+         			
+         			      <option value="8932" >Samson, Jean-François </option>     
+         			   
+         			
+         			      <option value="8749" >SANTOS, Denis </option>     
+         			   
+         			
+         			      <option value="8958" >Senechal, Sebastien </option>     
+         			   
+         			
+         			      <option value="8993" >Silva, ilionar </option>     
+         			   
+         			
+         			      <option value="4215" >Speranza, Marco </option>     
+         			   
+         			
+         			      <option value="8996" >St-Amand, Florence </option>     
+         			   
+         			
+         			      <option value="8743" >STANITSAS, Peter </option>     
+         			   
+         			
+         			      <option value="8723" >Subhadu, Deenesh </option>     
+         			   
+         			
+         			      <option value="8787" >SUNGARD Alert, Support </option>     
+         			   
+         			
+         			      <option value="1" >sysadmin </option>     
+         			   
+         			
+         			      <option value="8834" >Tadié, Serge </option>     
+         			   
+         			
+         			      <option value="8789" >TAILLEFER, Denis </option>     
+         			   
+         			
+         			      <option value="8718" >Tamvakologos, Anthony </option>     
+         			   
+         			
+         			      <option value="8950" >Tamvakologos, Anthony </option>     
+         			   
+         			
+         			      <option value="8889" >Tardif, Lucie </option>     
+         			   
+         			
+         			      <option value="8806" >TASCA, Robert </option>     
+         			   
+         			
+         			      <option value="8910" >Taveau, Eric </option>     
+         			   
+         			
+         			      <option value="8904" >Taylor, Cornell </option>     
+         			   
+         			
+         			      <option value="8906" >Tessier, Jean </option>     
+         			   
+         			
+         			      <option value="8987" >Tessier, Sylvain </option>     
+         			   
+         			
+         			      <option value="8721" >Teti, Rosanna </option>     
+         			   
+         			
+         			      <option value="8959" >Thibaudeau, Danny </option>     
+         			   
+         			
+         			      <option value="8861" >Thomas, Steven </option>     
+         			   
+         			
+         			      <option value="8914" >Ticehurst, Chris </option>     
+         			   
+         			
+         			      <option value="8802" >TOMASIELLO, Raffaele </option>     
+         			   
+         			
+         			      <option value="8870" >touse, touse </option>     
+         			   
+         			
+         			      <option value="2009" >Tran, Joséphine </option>     
+         			   
+         			
+         			      <option value="8982" >Tran, Lan </option>     
+         			   
+         			
+         			      <option value="8913" >Tremblay, Martine </option>     
+         			   
+         			
+         			      <option value="8807" >TREMPE, Jean-Yves </option>     
+         			   
+         			
+         			      <option value="8792" >TROPIANO, Errico </option>     
+         			   
+         			
+         			      <option value="8887" >Trudel, François </option>     
+         			   
+         			
+         			      <option value="8899" >Turcotte, Alex </option>     
+         			   
+         			
+         			      <option value="8969" >Unknow, Unknow </option>     
+         			   
+         			
+         			      <option value="8984" >Unknow, Unknow </option>     
+         			   
+         			
+         			      <option value="8937" >Vaida, Mugur </option>     
+         			   
+         			
+         			      <option value="8928" >Vallee, Denis </option>     
+         			   
+         			
+         			      <option value="8991" >Van Royen, Jean-François </option>     
+         			   
+         			
+         			      <option value="8816" >Vaslin, Laurent </option>     
+         			   
+         			
+         			      <option value="85" >Viens, Daniel </option>     
+         			   
+         			
+         			      <option value="8848" >Wallace, Michael </option>     
+         			   
+         			
+         			      <option value="8793" >WARNER, Roger </option>     
+         			   
+         			
+         			      <option value="8746" >WELNA, John </option>     
+         			   
+         			
+         			      <option value="5828" >Werner, Florian </option>     
+         			   
+         			
+         			      <option value="8722" >Wester, Alain </option>     
+         			   
+         			
+         			      <option value="8794" >WILLERTON, Rick </option>     
+         			   
+         			
+         			      <option value="8795" >WILSON, David </option>     
+         			   
+         			
+         			      <option value="3164" >Zalewski, Zbigniew </option>     
+         			   
+         			
+         			      <option value="8826" >ZBOCH, Christian </option>     
+         			   
+         			
+         			      <option value="8748" >ZIELINSKI, Patrick </option>     
+         			   
+         			
+         			      <option value="8994" >Zivkovic, Darko </option>     
+         			   
+         			
+         			      <option value="8923" >Zrim, Dominik </option>     
+         			   
+         			
+         			      <option value="8796" >ZUMER, Thierry </option>     
+         			   
+         			
+                  </select> 
+               </td> 
+               <td> 
+                  <b>Start Date</b> 
+               </td> 
+               <td> 
+                  <input type="text" id="startDate" name="startDateString" size="12"   
+                    
+                     value = ""/> 
+                        
+                  <input type="image" src="/releasemgr/images/calendar.gif" align="top" name="setStartDate"
+                    
+                     value = ""
+                        
+                  onclick="return showCalendar('startDate', 'yyyy-MM-dd');" /> 
+               </td> 
+            </tr> 
+            <tr> 
+               <td> 
+      		      <b>Status</b> 
+               </td> 
+               <td> 
+                  <select name="statusId"> 
+                  <option value="">ALL</option> 
+                  
+                        
+                           <option value="3001" >Submitted </option> 
+                        
+                      
+                   
+                        
+                           <option value="3002" >Approved </option> 
+                        
+                      
+                   
+                        
+                           <option value="3003" >Rejected </option> 
+                        
+                      
+                   
+                        
+                           <option value="3004" >Cancelled </option> 
+                        
+                      
+                   
+                        
+                      
+                   
+                  </select> 
+               </td> 
+               <td> 
+                  <b>End Date</b> 
+               </td> 
+               <td> 
+                  <input type="text" id="endDate" name="endDateString" size="12"
+                    
+                     value = ""/> 
+                  
+                  <input type="image" src="/releasemgr/images/calendar.gif" align="top" name="setEndDate"
+                    
+                     value = ""
+                        
+                  onclick="return showCalendar('endDate', 'yyyy-MM-dd');" />&nbsp; 
+               </td> 
+            </tr> 
+            <tr> 
+               <td> 
+      		      <b>Manager</b> 
+               </td> 
+               <td> 
+                  <select name="managerId"> 
+                  <option value="">ALL</option> 
+                  
+                        <option value="35" >Bertrand, Jean-Francois </option>     
+                   
+                  
+                        <option value="8717" >Christodoulakis, Polizoï </option>     
+                   
+                  
+                        <option value="8838" >Dutrisac, Jocelyn </option>     
+                   
+                  
+                        <option value="7172" >Gilbert, Alain </option>     
+                   
+                  
+                        <option value="65" >Guilbault, Jean </option>     
+                   
+                  
+                        <option value="8377" >Imperatori, Norman </option>     
+                   
+                  
+                        <option value="8729" >LeGuehennec, Erik </option>     
+                   
+                  
+                        <option value="8084" >Martineau, David </option>     
+                   
+                  
+                  </select> 
+               </td> 
+            </tr> 
+            <tr> 
+               
+               <td colspan="2"/> 
+               
+                <td align="right" colspan="2"> 
+                  <input width="80px" type="submit" value="GO"> 
+               </td>                     
+            </tr>                     
+         </form> 
+         </table> 
+         </td> 
+      </tr> 
+   </table> 
+	<p> 
+   <table> 
+      <tr> 
+         <td> 
+            
+               <span class="pagebanner">4 items found, displaying all items.</span><span class="pagelinks"><strong>1</strong></span> 
+<table class="objecttable" id="objecttable"> 
+<thead> 
+<tr> 
+<th class="sortable"> 
+<a href="?d-7698137-s=0&amp;ressourceId=8893&amp;inquery=yes&amp;endDateString=&amp;managerId=&amp;returnto=absence&amp;all=yes&amp;d-7698137-p=1&amp;statusId=&amp;filterId=1&amp;startDateString=&amp;d-7698137-o=2">Start Date</a></th> 
+<th class="sortable"> 
+<a href="?d-7698137-s=1&amp;ressourceId=8893&amp;inquery=yes&amp;endDateString=&amp;managerId=&amp;returnto=absence&amp;all=yes&amp;d-7698137-p=1&amp;statusId=&amp;filterId=1&amp;startDateString=&amp;d-7698137-o=2">End Date</a></th> 
+<th class="sortable"> 
+<a href="?d-7698137-s=2&amp;ressourceId=8893&amp;inquery=yes&amp;endDateString=&amp;managerId=&amp;returnto=absence&amp;all=yes&amp;d-7698137-p=1&amp;statusId=&amp;filterId=1&amp;startDateString=&amp;d-7698137-o=2">Ressource</a></th> 
+<th>Type</th> 
+<th class="sortable"> 
+<a href="?d-7698137-s=4&amp;ressourceId=8893&amp;inquery=yes&amp;endDateString=&amp;managerId=&amp;returnto=absence&amp;all=yes&amp;d-7698137-p=1&amp;statusId=&amp;filterId=1&amp;startDateString=&amp;d-7698137-o=2">Duration</a></th> 
+<th class="sortable"> 
+<a href="?d-7698137-s=5&amp;ressourceId=8893&amp;inquery=yes&amp;endDateString=&amp;managerId=&amp;returnto=absence&amp;all=yes&amp;d-7698137-p=1&amp;statusId=&amp;filterId=1&amp;startDateString=&amp;d-7698137-o=2">Status</a></th> 
+<th class="sortable"> 
+<a href="?d-7698137-s=6&amp;ressourceId=8893&amp;inquery=yes&amp;endDateString=&amp;managerId=&amp;returnto=absence&amp;all=yes&amp;d-7698137-p=1&amp;statusId=&amp;filterId=1&amp;startDateString=&amp;d-7698137-o=2">Requested Date</a></th> 
+<th class="sortable"> 
+<a href="?d-7698137-s=7&amp;ressourceId=8893&amp;inquery=yes&amp;endDateString=&amp;managerId=&amp;returnto=absence&amp;all=yes&amp;d-7698137-p=1&amp;statusId=&amp;filterId=1&amp;startDateString=&amp;d-7698137-o=2">Approval Date</a></th> 
+<th class="sortable"> 
+<a href="?d-7698137-s=8&amp;ressourceId=8893&amp;inquery=yes&amp;endDateString=&amp;managerId=&amp;returnto=absence&amp;all=yes&amp;d-7698137-p=1&amp;statusId=&amp;filterId=1&amp;startDateString=&amp;d-7698137-o=2">Approved by</a></th> 
+<th>Actions</th></tr></thead> 
+<tbody> 
+<tr class="odd"> 
+<td> 
+                     <a href="\releasemgr\do\view\absence?oid=465">2010-10-14</a> 
+                  </td> 
+<td> 
+                     2010-10-14
+                  </td> 
+<td> 
+                     Boulerne, Philippe
+                  </td> 
+<td> 
+	                  
+  	                        Vacances annuelles
+	                  
+                  </td> 
+<td> 
+                     1.0
+                  </td> 
+<td> 
+                     Approved
+                  </td> 
+<td> 
+                     2010-10-12
+                  </td> 
+<td> 
+                     2010-10-12
+                  </td> 
+<td> 
+                          
+                        LeGuehennec, Erik
+                           
+                  </td> 
+<td> 
+                         
+         			      <a href="/releasemgr/do/edit/absence?returnto=%2Fdo%2Fview%2Fabsences%3FressourceId%3D8893%26endDateString%3D%26inquery%3Dyes%26managerId%3D%26returnto%3Dabsence%26all%3Dyes%26statusId%3D%26filterId%3D1%26startDateString%3D&amp;oid=465"><img src="/releasemgr/images/edit.gif" border="0" alt="edit"></a> 
+         			   
+                  </td></tr> 
+<tr class="even"> 
+<td> 
+                     <a href="\releasemgr\do\view\absence?oid=471">2010-11-24</a> 
+                  </td> 
+<td> 
+                     2010-11-24
+                  </td> 
+<td> 
+                     Boulerne, Philippe
+                  </td> 
+<td> 
+	                  
+  	                        Vacances annuelles
+	                  
+                  </td> 
+<td> 
+                     1.0
+                  </td> 
+<td> 
+                     Submitted
+                  </td> 
+<td> 
+                     2010-10-13
+                  </td> 
+<td> 
+                     
+                  </td> 
+<td> 
+                          
+                  </td> 
+<td> 
+                         
+         			      <a href="/releasemgr/do/edit/absence?returnto=%2Fdo%2Fview%2Fabsences%3FressourceId%3D8893%26endDateString%3D%26inquery%3Dyes%26managerId%3D%26returnto%3Dabsence%26all%3Dyes%26statusId%3D%26filterId%3D1%26startDateString%3D&amp;oid=471"><img src="/releasemgr/images/edit.gif" border="0" alt="edit"></a> 
+         			   
+                  </td></tr> 
+<tr class="odd"> 
+<td> 
+                     <a href="\releasemgr\do\view\absence?oid=463">2010-12-24</a> 
+                  </td> 
+<td> 
+                     2010-12-24
+                  </td> 
+<td> 
+                     Boulerne, Philippe
+                  </td> 
+<td> 
+	                  
+  	                        Vacances annuelles
+	                  
+                  </td> 
+<td> 
+                     0.5
+                  </td> 
+<td> 
+                     Approved
+                  </td> 
+<td> 
+                     2010-10-12
+                  </td> 
+<td> 
+                     2010-10-12
+                  </td> 
+<td> 
+                          
+                        LeGuehennec, Erik
+                           
+                  </td> 
+<td> 
+                         
+         			      <a href="/releasemgr/do/edit/absence?returnto=%2Fdo%2Fview%2Fabsences%3FressourceId%3D8893%26endDateString%3D%26inquery%3Dyes%26managerId%3D%26returnto%3Dabsence%26all%3Dyes%26statusId%3D%26filterId%3D1%26startDateString%3D&amp;oid=463"><img src="/releasemgr/images/edit.gif" border="0" alt="edit"></a> 
+         			   
+                  </td></tr> 
+<tr class="even"> 
+<td> 
+                     <a href="\releasemgr\do\view\absence?oid=464">2010-12-29</a> 
+                  </td> 
+<td> 
+                     2010-12-31
+                  </td> 
+<td> 
+                     Boulerne, Philippe
+                  </td> 
+<td> 
+	                  
+  	                        Vacances annuelles
+	                  
+                  </td> 
+<td> 
+                     2.5
+                  </td> 
+<td> 
+                     Approved
+                  </td> 
+<td> 
+                     2010-10-12
+                  </td> 
+<td> 
+                     2010-10-12
+                  </td> 
+<td> 
+                          
+                        LeGuehennec, Erik
+                           
+                  </td> 
+<td> 
+                         
+         			      <a href="/releasemgr/do/edit/absence?returnto=%2Fdo%2Fview%2Fabsences%3FressourceId%3D8893%26endDateString%3D%26inquery%3Dyes%26managerId%3D%26returnto%3Dabsence%26all%3Dyes%26statusId%3D%26filterId%3D1%26startDateString%3D&amp;oid=464"><img src="/releasemgr/images/edit.gif" border="0" alt="edit"></a> 
+         			   
+                  </td></tr></tbody></table><span class="pagebanner">4 items found, displaying all items.</span><span class="pagelinks"><strong>1</strong></span> 
+            
+            
+         </td> 
+         <td> 
+            
+         </td> 
+      </tr> 
+   </table> 
+   </p> 
+   <a href="/releasemgr/do/edit/absence?returnto=%2Fdo%2Fview%2Fabsences%3FressourceId%3D8893%26endDateString%3D%26inquery%3Dyes%26managerId%3D%26returnto%3Dabsence%26all%3Dyes%26statusId%3D%26filterId%3D1%26startDateString%3D">Create Absence Request</a> 
+   <form action='/releasemgr/do/search/id' name='searchForm'><table bgcolor='#CCCCCC' width='100%' border='0' class='navbar' border='0' cellpadding='0' cellspacing='0'><tr><td><a href='/releasemgr/do/search/change'>Changes</a> | <a href='/releasemgr/do/view/newChanges'>New Changes</a> | <a href='/releasemgr/do/view/person?oid=8893'>Me</a> | <a href='/releasemgr/do/view/people'>People</a> | <a href='/releasemgr/do/search/delivery'>Deliveries</a> | <a href='/releasemgr/do/view/projects'>Projects</a> | <a href='/releasemgr/do/view/tasks'>My Tasks</a> | <a href='/releasemgr/do/view/filters'>My Filters</a> | <a href='/releasemgr/do/view/views'>My Views</a> | <a href='/releasemgr/do/view/all_tasks'>All Tasks</a> | <a href='/releasemgr/do/view/absences'>Absences</a> | <a href='/releasemgr/do/view/reports/modules'>Reports</a></td><td align='right'><span class='idsearch'>Search: <input type='text' size='10' name='searchedId' value=""> <select name='searchType'><option value='Number'>Number</option><option value='Title'>Title</option><option value='Related change'>Related change</option><option value='Short description'>Short description</option><option value='Description'>Description</option><option value='Id'>Id</option><option value='Code'>Code</option></select> <input type='submit' name='action' value='Find'/> </span> </td></tr></table></form> 
+</div> 
+    <div class="page_footer"> 
+ 
+ 
+ 
+ 
+ 
+ 
+<table border="0" width="100%"> 
+<tr> 
+    <td> 
+        
+        
+            user: pboulerne            
+        
+    </td> 
+    <td align="center"> 
+        
+            
+        
+    </td> 
+    <td align="right">        
+            Version
+            1.0.0        
+    </td> 
+</tr> 
+</table> 
+</div> 
+</body> 
+</html> 
+ 
