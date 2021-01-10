@@ -97,6 +97,7 @@ public:
     static_assert(_map.tb[1] > 0);
     return _map.tb[clipTag(tag)];
   }
+
 private:
   static constexpr bool compileTimeTestOfClip()
   {
@@ -162,7 +163,6 @@ private:
     return true;
   }
   static_assert(compileTimeTestOfClip());
-
 };
 
 // clang-format off
@@ -366,8 +366,9 @@ struct tv_t
   const char *_tag;
   boost::string_ref _val;
 
-  tv_t( const char *tag_, boost::string_ref val_) : _tag(tag_), _val(val_)
-  {}
+  tv_t(const char *tag_, const boost::string_ref &val_) : _tag(tag_), _val(val_)
+  {
+  }
 
   tv_t() = delete;
   tv_t(const tv_t &) = delete;
@@ -378,8 +379,7 @@ struct tv_t
 class tvp_writer
 {
 public:
-  //template <class FUNC> void write(const char sep_, const char *fix8_, std::initializer_list<tv_t>&& tvp_, FUNC &&func_)
-  template <class FUNC> void write(const char sep_, const char *fix8_, std::initializer_list<tv_t> tvp_, FUNC &&func_)
+  template <class FUNC> void write(const char sep_, const char *fix8_, std::initializer_list<tv_t> &&tvp_, FUNC &&func_)
   {
     std::ostringstream s;
     s << "8=" << fix8_ << sep_;
