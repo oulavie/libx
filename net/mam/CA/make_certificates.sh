@@ -29,16 +29,15 @@ openssl req -new -sha256 -nodes -key server_key.pem -subj="/C=US/ST=CA/L=LosAnge
 openssl x509 -req -sha256 -days 365 -in server_cert.req -CA=ca_cert.pem -CAkey=ca_key.pem -CAcreateserial -out server_cert.pem &> /dev/null
 #openssl x509 -in server_cert.pem -text -noout
 
-# 4.1.1 Generate Private Key
-# openssl genrsa –out ubs_rcXXXX.key 1024
-# 4.1.2 Certificate Signing Request Generation:
-# openssl req -new -key ubs_rcXXXX.key -out ubs_rcXXXX.csr
-# 4.1.3 Send Certificate to UBS
-# Email the ubs_rcXXXX.csr file to UBS support team (ol-ecstlondon@ubs.com)
-# 4.1.3 Send Certificate to UBS
-# Email the ubs_rcXXXX.csr file to UBS support team (ol-ecstlondon@ubs.com)
-#  UBS will return the signed certificate (ubs_rcXXXX.pem) as well as 
-#  the UBS FixSpec Certificate Authority (ca_ubs_fixspec.pem) to you within 24 hours.
+# 1 Generate Private Key
+# openssl genrsa –out toto.key 1024
+# 2 Certificate Signing Request Generation:
+# openssl req -new -key toto.key -out toto.csr
+# 3 Send Certificate to company 
+# Email the toto.csr file 
+# 4 Send Certificate
+# Email the toto.csr file to company
+# will return the signed certificate (toto.pem) as well as Certificate Authority (titi.pem) 
 
 # openssl genrsa 1024 > CA.key                                (generates private key)
 # openssl req -new -key CA.key -x509 -days 1095 -out CA.crt   (certificate/public key generated from private key)
