@@ -11,7 +11,8 @@ namespace http
 
 //--------------------------------------------------------------------------------------------------
 // auto html = http::get_html( "<html><body><h1>Hello world!!</h1></body></html>" );
-std::string get_http(const char *html_, bool keep_alive_ = true)
+//std::string get_http(const char *html_, bool keep_alive_ = true)
+std::string get_http(const char *html_)
 {
   std::string html(html_);
 

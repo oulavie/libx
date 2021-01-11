@@ -98,6 +98,14 @@ public:
     --_no_active_fd;
     std::cout << __PRETTY_FUNCTION__ << " fd=" << fd_ << " _no_active_fd=" << _no_active_fd << AT << std::endl;
   }
+  void run()
+  {
+    while (_no_active_fd > 0)
+    {
+      poll();
+    }
+  }
+private:
   std::size_t poll(int timeout_ = 0)
   {
     int toprocess = 0;
@@ -123,14 +131,6 @@ public:
     }
     return toprocess;
   }
-  void run()
-  {
-    while (_no_active_fd > 0)
-    {
-      poll();
-    }
-  }
-
   multiplexer(const multiplexer &) = delete;
   multiplexer &operator=(const multiplexer &) = delete;
   multiplexer(multiplexer &&) = delete;
