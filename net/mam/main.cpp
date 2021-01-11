@@ -23,8 +23,8 @@
 namespace
 {
 
-#define likely(x) __builtin_expect((x), 1)
-#define unlikely(x) __builtin_expect((x), 0)
+//#define likely(x) __builtin_expect((x), 1)
+//#define unlikely(x) __builtin_expect((x), 0)
 
 
 //------------------------------------------------------------------------------
@@ -156,8 +156,8 @@ public:
 //--------------------------------------------------------------------------------------------------
 class htmlclients
 {
-  std::set<int> _fds;
-  std::map< int, std::unique_ptr<htmlclient>> _clients;
+  std::set<int> _fds = {};
+  std::map< int, std::unique_ptr<htmlclient>> _clients = {};
 public:
   void insert_new_client( int new_fd_ )
   {
@@ -260,7 +260,7 @@ class engine_t
   int _stdin_fd = -1, _timer_fd = -1, _signal_fd = -1, _tcp_fd = -1;
   std::string _stdin = {};
 
-  htmlclients _htmlclients;
+  htmlclients _htmlclients = {};
 
   int _server_fd = -1;
 

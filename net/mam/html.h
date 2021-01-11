@@ -38,7 +38,7 @@ class html
 {
 protected:
   std::string _name = {};
-  std::vector<html *> _htmls;
+  std::vector<html *> _htmls = {};
 
 public:
   // html(std::initializer_list<html> l_) : _htmls(l_) { }

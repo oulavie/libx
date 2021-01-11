@@ -49,7 +49,7 @@ std::string url_decode(const char* const begin_, const char* const end_)
   std::ostringstream escaped;
   escaped.fill('0');
 
-  const char* current = beging_;
+  const char* current = begin_;
 
   for ( ; current != end_; ++current )
   {
