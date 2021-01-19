@@ -46,7 +46,7 @@ int create_timer_fd(int millisec_interval_)
 
 template <typename T> void read_timer_fd(int fd_, T &&t_)
 {
-  int timerElapsed{0};
+  size_t timerElapsed{0};
   ssize_t bytes = read(fd_, (void*)&timerElapsed, 8);
   if (bytes == 8)
     t_(timerElapsed);

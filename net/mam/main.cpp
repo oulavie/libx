@@ -1,11 +1,11 @@
 
 #include "html.h"
 #include "http.h"
-#include "url.h"
 #include "mamMisc.h"
 #include "mamMultiplexer.h"
 #include "mamNet.h"
-#include "mamNetSSL.h"
+#include "url.h"
+//#include "mamNetSSL.h"
 #include <functional>
 #include <iostream>
 
@@ -14,8 +14,8 @@
 #include <stdio.h>
 #include <string.h>
 
-#include <set>
 #include <map>
+#include <set>
 #include <string>
 
 // https://prdeving.wordpress.com/2016/08/26/keylogger-linux-c/
@@ -26,39 +26,56 @@ namespace
 //#define likely(x) __builtin_expect((x), 1)
 //#define unlikely(x) __builtin_expect((x), 0)
 
+//------------------------------------------------------------------------------
+template <char SEPARATOR = '\1', typename Token> bool tokenize(const char *data_, size_t len_, Token token) noexcept
+{
+  size_t tagPos = 0;
+  for (uint16_t i(0); i < len_; ++i)
+  {
+    if (data_[i] == SEPARATOR)
+    {
+      token(tagPos, i);
+      tagPos = i + 1;
+    }
+  }
+  if (tagPos != len_)
+    token(tagPos, len_);
+  return true;
+}
 
 //------------------------------------------------------------------------------
 template <char SEPARATOR = '\1', typename Token>
-bool tokenize( const char *data_, uint16_t len_, Token token ) noexcept
+bool tokenize_tag_val(const char *data_, uint16_t len_, Token token) noexcept
 {
   int tagPos = 0;
   int valPos = 0;
-  for ( uint16_t i( 0 ); i < len_; ++i )
+  for (uint16_t i(0); i < len_; ++i)
   {
-    if ( data_[i] == '=' )
+    if (data_[i] == '=')
     {
-      valPos = ++i;
-      for ( ; i < len_; ++i )
+      valPos = i;
+      for (; i < len_; ++i)
       {
-        if ( data_[i] == SEPARATOR )
+        if (data_[i] == SEPARATOR)
         {
-         token( tagPos, valPos, i );
-           tagPos = i + 1;
-           break;
-         }
+          token(tagPos, valPos, i);
+          tagPos = i + 1;
+          break;
+        }
       }
-     }
-   }
-   return true;
+    }
+  }
+  token(tagPos, valPos, len_);
+  return true;
 }
 
-}
+} // namespace
 
 //--------------------------------------------------------------------------------------------------
 class htmlclient
 {
 public:
-  void send( int fd_ )
+  void send(int fd_)
   {
     std::string date = mam::date();
     // clang-format off
@@ -145,9 +162,9 @@ public:
     std::stringstream oss;
     a.gett(oss);
     std::string s = oss.str();
-    std::cout << "----------------------------------------------------------------------------------------------------" << std::endl;
+    std::cout << "--------------------------------------------------------------------------------" << std::endl;
     std::cout << s << AT << std::endl;
-    std::cout << "----------------------------------------------------------------------------------------------------" << std::endl;
+    std::cout << "--------------------------------------------------------------------------------" << std::endl;
     auto http = http::get_http(s.data());
     mam::tcp_write(fd_, (uint8_t *)http.data(), http.length());
   }
@@ -157,18 +174,19 @@ public:
 class htmlclients
 {
   std::set<int> _fds = {};
-  std::map< int, std::unique_ptr<htmlclient>> _clients = {};
+  std::map<int, std::unique_ptr<htmlclient>> _clients = {};
+
 public:
-  void insert_new_client( int new_fd_ )
+  void insert_new_client(int new_fd_)
   {
     _fds.insert(new_fd_);
   }
-  bool is_client( int fd_ )
+  bool is_client(int fd_)
   {
     auto found = _fds.find(fd_);
     return found != _fds.end();
   }
-  void handle_read(int fd_, const uint8_t* buf_, size_t len_)
+  void handle_read(int fd_, const uint8_t *buf_, size_t len_)
   {
     if (fd_ == -1)
     {
@@ -186,28 +204,45 @@ public:
 
       //
       auto current = buf_;
-      auto end = buf_+len_;
-      for( ; current < end; ++current)
+      auto end = buf_ + len_;
+      for (; current < end; ++current)
       {
-        if( *current == '\r' || *current == '\n')
+        if (*current == '\r' || *current == '\n')
           break;
       }
 
-      //
-      std::string encoded_url((char*)buf_, current-buf_ );
-      std::string url = pbx::url_decode( encoded_url);
+      std::vector<std::string> args;
+      tokenize<' '>((char *)buf_, current - buf_, [&](size_t begin_, size_t end_) {
+        std::string s((char *)buf_ + begin_, end_ - begin_);
+        args.push_back(s);
+      });
 
-      //
+      // http_URL = "http:" "//" host [ ":" port ] [ abs_path [ "?" query ]]
+      // /login_1_1?ip=142.116.239.216&login_mail=a@q&login_password=b&request_id=request id ...
+      args[1] = pbx::url_decode(args[1]);
+      std::size_t pos = args[1].find("?");
 
-      //
+      std::string host { args[1].data(), pos };
+      char *ptr = args[1].data() + pos + 1;
+      size_t len = args[1].length() - pos - 1;
 
-      std::cout << "====================================================================================================" << std::endl;
-      std::cout << url << AT << std::endl;
-      std::cout << "====================================================================================================" << std::endl;
-      send( fd_ );
+      std::vector<std::pair<std::string, std::string>> queries;
+      tokenize_tag_val<'&'>(ptr, len, [&](size_t begin_, size_t equal_, size_t end_) {
+        queries.push_back(
+            {std::string(ptr + begin_, equal_ - begin_), std::string(ptr + equal_ + 1, end_ - equal_ - 1)});
+      });
+
+      std::cout << "=1===============================================================================" << std::endl;
+      for (size_t i(0); i < args.size(); ++i)
+        std::cout << args[i] << AT << std::endl;
+      std::cout << "HOST  : [" << host  << "]" << AT << std::endl;
+      for (size_t i(0); i < queries.size(); ++i)
+        std::cout << "QUERY : [" << queries[i].first << "] == [" << queries[i].second << "] " << AT << std::endl;
+      std::cout << "=2===============================================================================" << std::endl;
+      send(fd_);
     }
   }
-  void send( int fd_ )
+  void send(int fd_)
   {
     std::string date = mam::date();
     // clang-format off
@@ -245,9 +280,9 @@ public:
     std::stringstream oss;
     a.gett(oss);
     std::string s = oss.str();
-    std::cout << "----------------------------------------------------------------------------------------------------" << std::endl;
+    std::cout << ".1..............................................................................." << std::endl;
     std::cout << s << AT << std::endl;
-    std::cout << "----------------------------------------------------------------------------------------------------" << std::endl;
+    std::cout << ".2..............................................................................." << std::endl;
     auto http = http::get_http(s.data());
     mam::tcp_write(fd_, (uint8_t *)http.data(), http.length());
   }
@@ -256,7 +291,7 @@ public:
 //--------------------------------------------------------------------------------------------------
 class engine_t
 {
-  mam::multiplexer _multiplex;
+  mam::multiplexer _multiplex = {};
   int _stdin_fd = -1, _timer_fd = -1, _signal_fd = -1, _tcp_fd = -1;
   std::string _stdin = {};
 
@@ -309,7 +344,7 @@ class engine_t
   }
 
 public:
-  engine_t() : _multiplex{}
+  engine_t()
   {
     std::cout << __PRETTY_FUNCTION__ << AT << std::endl;
     //_stdin_fd = mam::create_stdin_fd();
@@ -405,27 +440,27 @@ public:
     }
     else if (fd_ == _tcp_fd)
     {
-      const size_t bufsz = 1024*1024;
+      const size_t bufsz = 1024 * 1024;
       uint8_t buffer[bufsz];
       size_t sz = bufsz;
-      _tcp_fd = read_tcp_fd( fd_, buffer, sz);
+      _tcp_fd = read_tcp_fd(fd_, buffer, sz);
     }
     else if (fd_ == _server_fd)
     {
       int new_fd = mam::server_accept_fd(fd_);
       _multiplex.register_fd(new_fd, this, static_handler);
-      _htmlclients.insert_new_client( new_fd );
+      _htmlclients.insert_new_client(new_fd);
     }
-    else if( _htmlclients.is_client( fd_ ))
+    else if (_htmlclients.is_client(fd_))
     {
-      const size_t bufsz = 1024*1024;
+      const size_t bufsz = 1024 * 1024;
       uint8_t buffer[bufsz];
       size_t sz = bufsz;
-      int fd = read_tcp_fd( fd_, (uint8_t*)buffer, sz);
-      _htmlclients.handle_read( fd, buffer, sz);
+      int fd = read_tcp_fd(fd_, (uint8_t *)buffer, sz);
+      _htmlclients.handle_read(fd, buffer, sz);
     }
   }
-  int read_tcp_fd(int fd_, uint8_t *buffer_, size_t& buffersize_)
+  int read_tcp_fd(int fd_, uint8_t *buffer_, size_t &buffersize_)
   {
     std::cout << __PRETTY_FUNCTION__ << " fd=" << fd_ << AT << std::endl;
     ssize_t error;
