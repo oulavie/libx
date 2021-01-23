@@ -1,14 +1,10 @@
 /*
- * Copyright (c) 2011, Paulo Pereira <ppi@coding-raccoons.org>
- * Copyright (c) 2011, Philippe Boulerne <boolern666@gmail.com>
- * All rights reserved.
- * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * 
+ *
  * - Redistributions of source code must retain the above copyright notice,
  *   this list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice, 
+ * - Redistributions in binary form must reproduce the above copyright notice,
  *   this list of conditions and the following disclaimer in the documentation
  *   and/or other materials provided with the distribution.
  *
@@ -68,7 +64,7 @@ void extract_document( std::string       &document,
 }
 
 // -----------------------------------------------------------------------------
-static void extract_to_CRLF( std::string       &rExtract, 
+static void extract_to_CRLF( std::string       &rExtract,
                              std::string const& what,
                              std::string const& strHttp)
 {
@@ -104,7 +100,7 @@ void extract_document( std::string       &rHttpRequest,
    else if( strHttp.data()[0] == 'P' &&
             strHttp.data()[1] == 'O' &&
             strHttp.data()[2] == 'S' &&
-            strHttp.data()[3] == 'T' && 
+            strHttp.data()[3] == 'T' &&
             strHttp.data()[4] == ' ')
    {
       size_t pos = strHttp.find( ' ', 5);
@@ -113,7 +109,7 @@ void extract_document( std::string       &rHttpRequest,
    else if( strHttp.data()[0] == 'H' &&
             strHttp.data()[1] == 'E' &&
             strHttp.data()[2] == 'A' &&
-            strHttp.data()[3] == 'D' && 
+            strHttp.data()[3] == 'D' &&
             strHttp.data()[4] == ' ')
    {
       size_t pos = strHttp.find( ' ', 5);
@@ -122,8 +118,8 @@ void extract_document( std::string       &rHttpRequest,
    else if( strHttp.data()[0] == 'T' &&
             strHttp.data()[1] == 'R' &&
             strHttp.data()[2] == 'A' &&
-            strHttp.data()[3] == 'C' && 
-            strHttp.data()[4] == 'E' && 
+            strHttp.data()[3] == 'C' &&
+            strHttp.data()[4] == 'E' &&
             strHttp.data()[5] == ' ')
    {
       size_t pos = strHttp.find( ' ', 5);
@@ -248,17 +244,17 @@ const char SAFE[256] =
     /* 1 */ 0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0,
     /* 2 */ 0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0,
     /* 3 */ 1,1,1,1, 1,1,1,1, 1,1,0,0, 0,0,0,0,
-    
+
     /* 4 */ 0,1,1,1, 1,1,1,1, 1,1,1,1, 1,1,1,1,
     /* 5 */ 1,1,1,1, 1,1,1,1, 1,1,1,0, 0,0,0,0,
     /* 6 */ 0,1,1,1, 1,1,1,1, 1,1,1,1, 1,1,1,1,
     /* 7 */ 1,1,1,1, 1,1,1,1, 1,1,1,0, 0,0,0,0,
-    
+
     /* 8 */ 0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0,
     /* 9 */ 0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0,
     /* A */ 0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0,
     /* B */ 0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0,
-    
+
     /* C */ 0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0,
     /* D */ 0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0,
     /* E */ 0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0,
@@ -266,24 +262,24 @@ const char SAFE[256] =
 };
 
 // -----------------------------------------------------------------------------
-const char HEX2DEC[256] = 
+const char HEX2DEC[256] =
 {
     /*       0  1  2  3   4  5  6  7   8  9  A  B   C  D  E  F */
     /* 0 */ -1,-1,-1,-1, -1,-1,-1,-1, -1,-1,-1,-1, -1,-1,-1,-1,
     /* 1 */ -1,-1,-1,-1, -1,-1,-1,-1, -1,-1,-1,-1, -1,-1,-1,-1,
     /* 2 */ -1,-1,-1,-1, -1,-1,-1,-1, -1,-1,-1,-1, -1,-1,-1,-1,
     /* 3 */  0, 1, 2, 3,  4, 5, 6, 7,  8, 9,-1,-1, -1,-1,-1,-1,
-    
+
     /* 4 */ -1,10,11,12, 13,14,15,-1, -1,-1,-1,-1, -1,-1,-1,-1,
     /* 5 */ -1,-1,-1,-1, -1,-1,-1,-1, -1,-1,-1,-1, -1,-1,-1,-1,
     /* 6 */ -1,10,11,12, 13,14,15,-1, -1,-1,-1,-1, -1,-1,-1,-1,
     /* 7 */ -1,-1,-1,-1, -1,-1,-1,-1, -1,-1,-1,-1, -1,-1,-1,-1,
-    
+
     /* 8 */ -1,-1,-1,-1, -1,-1,-1,-1, -1,-1,-1,-1, -1,-1,-1,-1,
     /* 9 */ -1,-1,-1,-1, -1,-1,-1,-1, -1,-1,-1,-1, -1,-1,-1,-1,
     /* A */ -1,-1,-1,-1, -1,-1,-1,-1, -1,-1,-1,-1, -1,-1,-1,-1,
     /* B */ -1,-1,-1,-1, -1,-1,-1,-1, -1,-1,-1,-1, -1,-1,-1,-1,
-    
+
     /* C */ -1,-1,-1,-1, -1,-1,-1,-1, -1,-1,-1,-1, -1,-1,-1,-1,
     /* D */ -1,-1,-1,-1, -1,-1,-1,-1, -1,-1,-1,-1, -1,-1,-1,-1,
     /* E */ -1,-1,-1,-1, -1,-1,-1,-1, -1,-1,-1,-1, -1,-1,-1,-1,
@@ -302,7 +298,7 @@ std::string UriEncode( std::string const& rSrc)
 
    for (; pSrc < SRC_END; ++pSrc)
    {
-      if (SAFE[*pSrc]) 
+      if (SAFE[*pSrc])
          *pEnd++ = *pSrc;
       else
       {
@@ -328,7 +324,7 @@ std::string UriDecode( std::string const& rSrc)
    const unsigned char * pSrc = (const unsigned char *)rSrc.c_str();
    size_t SRC_LEN = rSrc.length();
    const unsigned char * const SRC_END = pSrc + SRC_LEN;
-   // last decodable '%' 
+   // last decodable '%'
    const unsigned char * const SRC_LAST_DEC = SRC_END - 2;
 
    char * const pStart = new char[SRC_LEN];
@@ -354,7 +350,7 @@ std::string UriDecode( std::string const& rSrc)
          pSrc++;
          continue;
       }
-      
+
       *pEnd++ = *pSrc++;
    }
 
@@ -388,7 +384,7 @@ static size_t url_decode( const char* src,
                           size_t      src_len,
                           char*       dst,
                           size_t      dst_len,
-                          int is_form_url_encoded) 
+                          int is_form_url_encoded)
 {
    size_t i, j;
    int a, b;
@@ -398,7 +394,7 @@ static size_t url_decode( const char* src,
    {
       if( src[i] == '%' &&
           isxdigit(* (unsigned char *) (src + i + 1)) &&
-          isxdigit(* (unsigned char *) (src + i + 2))) 
+          isxdigit(* (unsigned char *) (src + i + 2)))
       {
          a = tolower(* (unsigned char *) (src + i + 1));
          b = tolower(* (unsigned char *) (src + i + 2));
@@ -409,7 +405,7 @@ static size_t url_decode( const char* src,
       {
          dst[j] = ' ';
       }
-      else 
+      else
       {
          dst[j] = src[i];
       }
@@ -473,24 +469,24 @@ static void remove_double_dots_and_double_slashes( char *s)
 // -----------------------------------------------------------------------------
 /*
  *  urldecode  --  filter from URL-encoded text to plain text
- *  
+ *
  *  Description: this program reads from standard input and decodes %HH
  *  sequences in their byte equivalent according to the RFC 3986.
- *  
+ *
  *  Moreover, the '+' char is translated into space, as this is the common
  *  convention still in use on the WEB.
- *  
+ *
  *  Invalid and incomplete sequences, for example "%0q" or "abc%", are
  *  left untoched.  The result is sent to the standard output.
- *  
+ *
  *  Example: "a%20b" becomes "a b".
- *  
+ *
  *  Author: Umberto Salsi <salsi@icosaedro.it>
- *  
+ *
  *  Version: 2008-04-27
- *  
+ *
  *  Updates: www.icosaedro.it/apache/urldecode.c
- *  
+ *
  *  References: Uniform Resource Identifier (URI): Generic Syntax, RFC 3986
  */
 /*
@@ -573,7 +569,7 @@ int main()
 
 		}
 	}
-	
+
 	return 0;
 }
 */

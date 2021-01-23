@@ -1,14 +1,10 @@
 /*
- * Copyright (c) 2011, Paulo Pereira <ppi@coding-raccoons.org>
- * Copyright (c) 2011, Philippe Boulerne <boolern666@gmail.com>
- * All rights reserved.
- * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * 
+ *
  * - Redistributions of source code must retain the above copyright notice,
  *   this list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice, 
+ * - Redistributions in binary form must reproduce the above copyright notice,
  *   this list of conditions and the following disclaimer in the documentation
  *   and/or other materials provided with the distribution.
  *
@@ -60,7 +56,7 @@
 <p>My favorite color is <del>blue</del> <ins>red</ins>!</p>
 
 Word Break
-XML<wbr>Http<wbr>Request 
+XML<wbr>Http<wbr>Request
 */
 
 //------------------------------------------------------------------------------
@@ -229,13 +225,13 @@ void DskProxy::get_html_body( HtmlWriter &w,
          w.append( "</td>");
 
          w.append( "<td>");
-            w.append( "<form action='dsk' method='get' accept-charset='UTF-8'>");         
+            w.append( "<form action='dsk' method='get' accept-charset='UTF-8'>");
             w.append( "<input type='submit' name='Request' value='Add'/>");
             w.append( "</form>");
          w.append( "</td>");
 
          w.append( "<td>");
-            w.append( "<form action='dsk' method='get' accept-charset='UTF-8'>");         
+            w.append( "<form action='dsk' method='get' accept-charset='UTF-8'>");
             w.add( "<input type='text' name='Keywords' value='%s' size='60' placeholder='keywords' autocomplete='on'/>",
                keywords_.c_str());
             w.append( "</form>");
@@ -249,12 +245,12 @@ void DskProxy::get_html_body( HtmlWriter &w,
           //w.append( "<style type='text/css' ><!-- div.scroll_report{height:800px;overflow:auto;border:1px solid #FFF;background-color:#FFF;padding:8px;}--></style>");
             w.head().append(  "<style type='text/css' ><!-- div.scroll_report{height:800px;overflow:auto;border:1px solid #FFF;background-color:#FFF;padding:8px;}--></style>");
 
-            w.append( "<form action='dsk' method='get' accept-charset='UTF-8'>");         
+            w.append( "<form action='dsk' method='get' accept-charset='UTF-8'>");
             w.append( "<input type='submit' name='Request' value='Delete'/>");
 
             w.append( "<div class='scroll_report'>");
 
-            data_.get_data_table( w, hostname_.c_str(), rUserIP.c_str(), 
+            data_.get_data_table( w, hostname_.c_str(), rUserIP.c_str(),
                                   "dsk", "SelectDatum",
                                   (dsk::DatumExt::DataType)data_filter_);
 
@@ -278,7 +274,7 @@ void DskProxy::get_html_body( HtmlWriter &w,
                   w.append( "</td></tr>");
 
                   w.append( "<tr><td>");
-                     ::get_agenda_table( w, hostname_.c_str(), rUserIP.c_str(), 
+                     ::get_agenda_table( w, hostname_.c_str(), rUserIP.c_str(),
                                          "dsk", "SelectDate",
                                          calendar_.current_date_);
                   w.append( "</td></tr>");
@@ -309,7 +305,7 @@ void DskProxy::get_html_body( HtmlWriter &w,
                            w.add( "<td>%s | %s</td>", lDateTime.date2_str().data(),
                                                       day_of_week_str[0][dow]);
 
-                           data_.get_data_table_at( w, hostname_.c_str(), rUserIP.c_str(), 
+                           data_.get_data_table_at( w, hostname_.c_str(), rUserIP.c_str(),
                                                     "dsk", "SelectDatum",
                                                     (dsk::DatumExt::DataType)data_filter_,
                                                     &(lDateTime));
@@ -378,7 +374,7 @@ void DskProxy::get_html_body( HtmlWriter &w,
 }
 
 // -----------------------------------------------------------------------------
-static void get_input_for_existing_tags( HtmlWriter &w, 
+static void get_input_for_existing_tags( HtmlWriter &w,
                                          dsk::Data const& rData)
 {
    w.add( "<input type='text' name='%s' value='' size='70' placeholder='%s' list='existing_tags' onkeyup='send_keywords_to_server(this.value)' />",
@@ -402,7 +398,7 @@ static void get_input_for_existing_tags( HtmlWriter &w,
 }
 
 // -----------------------------------------------------------------------------
-void get_datalist_for_existing_tags( HtmlWriter &w, 
+void get_datalist_for_existing_tags( HtmlWriter &w,
                                      dsk::Data const& rData,
                                      DskProxy::tDataFilter data_filter)
 {
@@ -424,12 +420,12 @@ void get_datalist_for_existing_tags( HtmlWriter &w,
       }
    }
    w.append( "</datalist>");
-   
+
    w.append( "<div id='KeywordsHintDisplay'></div>");
 }
 
 // -----------------------------------------------------------------------------
-static void get_datum_entry( HtmlWriter &w, 
+static void get_datum_entry( HtmlWriter &w,
                             dsk::Data const& rData,
                             DskProxy::tDataFilter data_filter)
 {
@@ -519,8 +515,8 @@ xmlhttp.send();
 var xmlhttp;
 var user="123456";
 var pass="123456";
-function loadXMLDoc() 
-{ 
+function loadXMLDoc()
+{
 xmlhttp=null;
 if(window.XMLHttpRequest){xmlhttp=new XMLHttpRequest();}
 else if (window.ActiveXObject){xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");}
@@ -542,7 +538,7 @@ if (xmlhttp.readyState==4)
 {// 4 = "loaded"
 
      //alert("readystate ==4");
-         
+
   document.getElementById('response').innerHTML="response = "+xmlhttp.responseText;
   if (xmlhttp.status==200)
   {// 200 = "OK"
@@ -587,7 +583,7 @@ void get_datum_modify( HtmlWriter &w,
    // Subject Title
    w.append( "<tr>");
    w.add( "<td>%s</td><td>", dsk::Datum::get_attribut_from_tag(147));
-   w.add( "<input type='text' name='%s' value='%s' size='70' placeholder='%s' />", 
+   w.add( "<input type='text' name='%s' value='%s' size='70' placeholder='%s' />",
       dsk::Datum::get_attribut_from_tag(147),
       title.data(),
       dsk::Datum::get_attribut_from_tag(147));
@@ -631,7 +627,7 @@ void get_datum_modify( HtmlWriter &w,
 void get_datafilter_form( HtmlWriter &w,
                           DskProxy::tDataFilter data_filter)
 {
-   w.append( "<form action='dsk' method='get' accept-charset='UTF-8'>");         
+   w.append( "<form action='dsk' method='get' accept-charset='UTF-8'>");
    w.append( "<select name='DataFilter' onchange='this.form.submit()'>");
       w.add( "<option value='events' %s>Events</option>",
          (data_filter == DskProxy::eFltEvents) ? "selected='selected'" : "");
@@ -651,7 +647,7 @@ void get_datafilter_form( HtmlWriter &w,
 void get_datadisplay_form( HtmlWriter &w,
                            DskProxy::tDataDisplay data_display)
 {
-   w.append( "<form action='dsk' method='get' accept-charset='UTF-8'>");         
+   w.append( "<form action='dsk' method='get' accept-charset='UTF-8'>");
    w.append( "<select name='DataDisplay' onchange='this.form.submit()'>");
       w.add( "<option value='list' %s>List</option>",
          (data_display == DskProxy::eDspList) ? "selected='selected'" : "");

@@ -1,14 +1,10 @@
 /*
- * Copyright (c) 2011, Paulo Pereira <ppi@coding-raccoons.org>
- * Copyright (c) 2011, Philippe Boulerne <boolern666@gmail.com>
- * All rights reserved.
- * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * 
+ *
  * - Redistributions of source code must retain the above copyright notice,
  *   this list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice, 
+ * - Redistributions in binary form must reproduce the above copyright notice,
  *   this list of conditions and the following disclaimer in the documentation
  *   and/or other materials provided with the distribution.
  *
@@ -138,9 +134,9 @@ public:
 
 // -----------------------------------------------------------------------------
 /*
-<input type="text" id="startDate" name="startDateString" size="12" value = ""></input> 
+<input type="text" id="startDate" name="startDateString" size="12" value = ""></input>
 <input type="image" src="calendar.gif" align="top" name="setStartDate" value = ""
-       onclick="return showCalendar('startDate', 'yyyy-MM-dd');"></input> 
+       onclick="return showCalendar('startDate', 'yyyy-MM-dd');"></input>
 */
 class xHtmlDate
 {
@@ -214,7 +210,7 @@ class xRadio
 };
 
 /*
-La balise INPUT fait partie des éléments composant un formulaire (avec les tags BUTTON, SELECT et TEXTAREA) et permettant donc d'interagir avec l'utilisateur. 
+La balise INPUT fait partie des éléments composant un formulaire (avec les tags BUTTON, SELECT et TEXTAREA) et permettant donc d'interagir avec l'utilisateur.
 
 Ses attributs spécifiques sont :
 - type :	 Défini le type d'élément à afficher :

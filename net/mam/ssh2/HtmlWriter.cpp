@@ -1,14 +1,10 @@
 /*
- * copyright (c) 2011, Paulo Pereira <ppi@coding-raccoons.org>
- * copyright (c) 2011, Philippe Boulerne <boolern666@gmail.com>
- * All rights reserved.
- * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * 
+ *
  * - Redistributions of source code must retain the above copyright notice,
  *   this list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice, 
+ * - Redistributions in binary form must reproduce the above copyright notice,
  *   this list of conditions and the following disclaimer in the documentation
  *   and/or other materials provided with the distribution.
  *
@@ -41,23 +37,23 @@ The following tags have been introduced for better structure:
 - dialog: This tag can be used to mark up a conversation.
 - figure: This tag can be used to associate a caption together with some embedded content, such as a graphic or video.
 
-<!DOCTYPE html> 
-<html> 
+<!DOCTYPE html>
+<html>
    <head>
-      <meta charset="utf-8" /> 
-      <title>...</title> 
-   </head> 
-   <body> 
-      <header>...</header> 
+      <meta charset="utf-8" />
+      <title>...</title>
+   </head>
+   <body>
+      <header>...</header>
       <nav>...</nav>
       <article>
       <section> ... </section>
       </article>
       <aside>...</aside>
       <footer>...</footer>
-      <h2>HTML5 SVG Circle</h2> 
-      <svg id="svgelem" height="200" xmlns="http://www.w3.org/2000/svg"> 
-         <circle id="redcircle" cx="50" cy="50" r="50" fill="red" /> 
+      <h2>HTML5 SVG Circle</h2>
+      <svg id="svgelem" height="200" xmlns="http://www.w3.org/2000/svg">
+         <circle id="redcircle" cx="50" cy="50" r="50" fill="red" />
          <rect id="redrect" width="300" height="100" fill="red" />
          <line x1="0" y1="0" x2="200" y2="100" style="stroke:red;stroke-width:2"/>
          <ellipse cx="100" cy="50" rx="100" ry="50" fill="red" />
@@ -71,7 +67,7 @@ The following tags have been introduced for better structure:
          <ellipse cx="100" cy="50" rx="100" ry="50" style="fill:url(#gradient)" />
       </svg>
    </body>
-</html> 
+</html>
 
 http://validator.w3.org/
 
@@ -94,7 +90,7 @@ http://validator.w3.org/
 
 <html xmlns="http://www.w3.org/1999/xhtml"
 
-<meta http-equiv=\"Content-type\" content=\"text/html;charset=UTF-8\" 
+<meta http-equiv=\"Content-type\" content=\"text/html;charset=UTF-8\"
 
 */
 
@@ -107,7 +103,7 @@ HtmlWriter& HtmlWriter::reset()
    head_->erase();
    body_attributes_ = "";
    body_->erase();
-   ready_ = false; 
+   ready_ = false;
    return *this;
 }
 
@@ -196,7 +192,7 @@ size_t HtmlWriter::length()
 // -----------------------------------------------------------------------------
 HtmlWriter& HtmlWriter::operator=( const char* data)
 {
-   ready_ = false; 
+   ready_ = false;
    body_->operator=( data);
    return *this;
 }
@@ -204,7 +200,7 @@ HtmlWriter& HtmlWriter::operator=( const char* data)
 // -----------------------------------------------------------------------------
 HtmlWriter& HtmlWriter::operator+=( const char* data)
 {
-   ready_ = false; 
+   ready_ = false;
    body_->operator+=( data);
    return *this;
 }
@@ -212,7 +208,7 @@ HtmlWriter& HtmlWriter::operator+=( const char* data)
 // -----------------------------------------------------------------------------
 HtmlWriter& HtmlWriter::operator+=( std::string const& text)
 {
-   ready_ = false; 
+   ready_ = false;
    body_->operator+=( text);
    return *this;
 }
@@ -220,7 +216,7 @@ HtmlWriter& HtmlWriter::operator+=( std::string const& text)
 // -----------------------------------------------------------------------------
 HtmlWriter& HtmlWriter::append( const char* data)
 {
-   ready_ = false; 
+   ready_ = false;
    body_->append( data);
    return *this;
 }
@@ -228,7 +224,7 @@ HtmlWriter& HtmlWriter::append( const char* data)
 // -----------------------------------------------------------------------------
 HtmlWriter& HtmlWriter::append( std::string const& text)
 {
-   ready_ = false; 
+   ready_ = false;
    body_->append( text);
    return *this;
 }
@@ -236,7 +232,7 @@ HtmlWriter& HtmlWriter::append( std::string const& text)
 // -----------------------------------------------------------------------------
 HtmlWriter& HtmlWriter::add( const char* pBuffer, ...)
 {
-   ready_ = false; 
+   ready_ = false;
    if( pBuffer == NULL)
       return *this;
    static char sBuffer[ 1024*1024];
@@ -256,21 +252,21 @@ HtmlWriter& HtmlWriter::add( const char* pBuffer, ...)
 // -----------------------------------------------------------------------------
 void* HtmlWriter::body_ptr()
 {
-   ready_ = true; 
+   ready_ = true;
    return buffer_->data_ptr();
 }
 
 // -----------------------------------------------------------------------------
 size_t HtmlWriter::body_size()
 {
-   ready_ = true; 
+   ready_ = true;
    return buffer_->size();
 }
 
 // -----------------------------------------------------------------------------
 void HtmlWriter::set_body_length( size_t len)
 {
-   ready_ = true; 
+   ready_ = true;
    buffer_->set_length( len);
 }
 

@@ -1,14 +1,10 @@
 /*
- * Copyright (c) 2011, Paulo Pereira <ppi@coding-raccoons.org>
- * Copyright (c) 2011, Philippe Boulerne <boolern666@gmail.com>
- * All rights reserved.
- * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * 
+ *
  * - Redistributions of source code must retain the above copyright notice,
  *   this list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice, 
+ * - Redistributions in binary form must reproduce the above copyright notice,
  *   this list of conditions and the following disclaimer in the documentation
  *   and/or other materials provided with the distribution.
  *
@@ -93,7 +89,7 @@ public:
          lFormat.Initialise();
          T &rT = operator[](i);
          rT.IteratorDD( lFormat);
-         
+
          std::string str( lBuffer.c_str(), lBuffer.length());
          str += "\n";
          std::fwrite( str.c_str(), sizeof(char), str.length(), pFILE);

@@ -27,13 +27,13 @@ HELO me
 250 mx.google.com at your service
 MAIL FROM: <perenoel@polenord.com>
 250 2.1.0 OK e18si1979435ljj.156 - gsmtp
-RCPT TO:<philippe.boulerne@gmail.com>
+RCPT TO:<alfred.nobel@gmail.com>
 250 2.1.5 OK e18si1979435ljj.156 - gsmtp
 DATA
 354  Go ahead e18si1979435ljj.156 - gsmtp
 Subject: Email du Pere Noel
 From: Pere Noel
-To: Philippe Boulerne
+To: Alfred Nobel
 
 toto
 .
