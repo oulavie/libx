@@ -1,0 +1,182 @@
+
+https://bryanbrattlof.com/cgit-nginx-gitolite-a-personal-git-server/#openssh
+https://github.com/fail2ban/fail2ban
+https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys-on-ubuntu-20-04#step-2-%E2%80%94-copying-the-public-key-to-your-ubuntu-server
+https://www.digitalocean.com/community/tutorials/how-to-configure-ssh-key-based-authentication-on-a-linux-server
+https://git.zx2c4.com/cgit/about/
+https://www.nitrokey.com/
+https://www.cyberciti.biz/faq/ubuntu-linux-install-openssh-server/
+https://www.cyberciti.biz/faq/how-to-set-up-ssh-keys-on-linux-unix/
+https://www.cyberciti.biz/faq/howto-limiting-ssh-connections-with-ufw-on-ubuntu-debian/
+
+-----------------------------------------------------------------------------------------------------------------
+install ssh
+-----------------------------------------------------------------------------------------------------------------
+https://www.cyberciti.biz/faq/ubuntu-linux-install-openssh-server/
+
+$ sudo apt update
+$ sudo apt upgrade
+$ sudo apt install openssh-server         (!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!)
+$ sudo systemctl status ssh               (Verify that ssh service running)
+$ sudo systemctl enable ssh               (If not running enable the ssh server and start it as follows)
+$ sudo systemctl start ssh
+
+-----------------------------------------------------------------------------------------------------------------
+stop ssh
+-----------------------------------------------------------------------------------------------------------------
+$ sudo systemctl stop ssh.service    (To stop currently running one, use)
+$ sudo systemctl start ssh.service
+$ sudo systemctl disable ssh.service (To prevent the service from starting automatically at boot time, use)
+$ sudo systemctl mask ssh.service    (If you want to completely disable the service/unit, use)
+
+-----------------------------------------------------------------------------------------------------------------
+ufw the firewall
+-----------------------------------------------------------------------------------------------------------------
+$ sudo apt-get install ufw
+$ sudo vi /etc/default/ufw
+$ sudo ufw allow ssh                      (Configure firewall and open port 22)
+$ sudo ufw allow 22/tcp
+$ sudo ufw deny ssh
+$ sudo ufw deny 22
+$ sudo ufw enable
+$ sudo ufw status verbose                 (Now check your rules:)
+$ sudo ufw show added
+$ sudo ufw show raw
+
+to bounce ufw after modifications:
+$ sudo ufw disable
+$ sudo ufw enable
+
+UFW’s defaults are to deny all incoming connections and allow all outgoing connections:
+$ sudo ufw default deny incoming
+$ sudo ufw default allow outgoing
+$ sudo vi /etc/default/ufw               (to check the impact of the above commands)
+
+https://www.cyberciti.biz/faq/howto-limiting-ssh-connections-with-ufw-on-ubuntu-debian/
+$ sudo ufw limit ssh     (Open incoming SSH but deny connections from an IP address that has attempted to initiate 6 or more connections in the last 30 seconds. )
+
+$ sudo ufw status numbered
+$ sudo ufw delete 3   # Attention:
+$ sudo ufw delete 2   # 2 and 3 are examples
+
+https://www.cyberciti.biz/faq/ufw-allow-incoming-ssh-connections-from-a-specific-ip-address-subnet-on-ubuntu-debian/
+$ sudo ufw allow from {IP_ADDRESS_HERE} to any port 22  (How to allow incoming SSH from specific IP address)
+$ sudo ufw allow from 202.54.1.1 to any port 22
+
+$ sudo ufw default allow outgoing
+$ sudo ufw default deny outgoing
+$ sudo ufw allow out to 11.22.33.44 port http   # TCP 80
+$ sudo ufw allow out to 11.22.33.44 port https  # TCP 443
+
+
+
+
+
+
+
+
+
+$ ssh vivek@server-ip
+$ ssh vivek@power9
+
+https://www.cyberciti.biz/faq/how-to-set-up-ssh-keys-on-linux-unix/
+$ ssh-copy-id vivek@power9
+
+
+
+
+
+
+
+
+
+-----------------------------------------------------------------------------------------------------------------
+https://www.digitalocean.com/community/tutorials/how-to-configure-ssh-key-based-authentication-on-a-linux-server
+$ ssh-keygen              (!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!)
+$ ssh-keygen -t rsa
+$ ssh-keygen -t rsa -b 4096 -f ~/.ssh/vps-cloud.web-server.key -C "My web-server key"
+The utility will prompt you to select a location for the keys that will be generated. 
+By default, the keys will be stored in the ~/.ssh directory within your user’s home directory. 
+The private key will be called id_rsa and the associated public key will be called id_rsa.pub.
+By default, this will create a 2048 bit RSA key pair, which is fine for most uses.
+
+    $HOME/.ssh/id_rsa– contains your private key.
+    $HOME/.ssh/id_rsa.pub – contain your public key.
+
+
+$ man ssh-keygen
+
+-----------------------------------------------------------------------------------------------------------------
+private key protected by a passphrase
+-----------------------------------------------------------------------------------------------------------------
+Next, you will be prompted to enter a passphrase for the key. 
+This is an optional passphrase that can be used to encrypt the private key file on disk.
+You may be wondering what advantages an SSH key provides if you still need to enter a passphrase. 
+Some of the advantages are:
+A) The private SSH key (the part that can be passphrase protected), is never exposed on the network. 
+   The passphrase is only used to decrypt the key on the local machine. 
+   This means that network-based brute forcing will not be possible against the passphrase.
+B) The private key is kept within a restricted directory. 
+   The SSH client will not recognize private keys that are not kept in restricted directories. 
+   The key itself must also have restricted permissions (read and write only available for the owner). 
+   This means that other users on the system cannot snoop.
+C) Any attacker hoping to crack the private SSH key passphrase must already have access to the system. 
+   This means that they will already have access to your user account or the root account. 
+   If you are in this position, the passphrase can prevent the attacker from immediately logging into your other servers. 
+   This will hopefully give you time to create and implement a new SSH key pair and remove access from the compromised key.
+
+Since the private key is never exposed to the network and is protected through file permissions, 
+this file should never be accessible to anyone other than you (and the root user). 
+The passphrase serves as an additional layer of protection in case these conditions are compromised.
+
+-----------------------------------------------------------------------------------------------------------------
+https://www.cyberciti.biz/faq/how-to-set-up-ssh-keys-on-linux-unix/
+-----------------------------------------------------------------------------------------------------------------
+1: Create the key pair
+$ mkdir -p $HOME/.ssh
+$ chmod 0700 $HOME/.ssh
+$ cd $HOME/.ssh
+$ ssh-keygen -t rsa
+
+    $HOME/.ssh/id_rsa– contains your private key.
+    $HOME/.ssh/id_rsa.pub – contain your public key.
+
+-----------------------------------------------------------------------------------------------------------------
+2: Install the public key in remote serve
+$ ssh-copy-id -i $HOME/.ssh/id_rsa.pub user@server1.cyberciti.biz
+or:
+$            scp $HOME/.ssh/id_rsa.pub user@server1.cyberciti.biz:~/.ssh/authorized_keys
+
+-----------------------------------------------------------------------------------------------------------------
+3: Test it (type command on client1.cyberciti.biz)
+
+$ ssh user@server1.cyberciti.biz
+$ ssh user@your-server-ip-address
+$ ssh -i ~/.ssh/your-key user@your-server-ip-address
+
+$ scp foo.txt user@server1.cyberciti.biz:/tmp/
+
+You will be prompted for a passphrase. 
+To get rid of passphrase whenever you log in the remote host, try ssh-agent and ssh-add commands.
+
+$ ssh-add -L    (One can list public key parameters of all identities with the -L option:)
+$ ssh-add -D    (Deleting all private keys from the ssh-agent can be done with the -D option as follows:)
+$ kill $SSH_AGENT_PID (When you log out kill the ssh agent, run:)
+
+-----------------------------------------------------------------------------------------------------------------
+4: Disable the password based login on a server
+-----------------------------------------------------------------------------------------------------------------
+5: How to add or replace a passphrase for an existing private key?
+-----------------------------------------------------------------------------------------------------------------
+6: How do I backup an existing private/public key?
+rsync -avr $HOME/.ssh user@home.nas-server:/path/to/encrpted/nas/partition/
+
+-----------------------------------------------------------------------------------------------------------------
+How do I protect my ssh keys?
+    Always use a strong passphrase.
+    Do not share your private keys anywhere online or store in insecure cloud storage.
+    Restrict privileges of the account.
+
+
+
+

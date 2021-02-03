@@ -1,0 +1,272 @@
+www.google.com: 2607:f8b0:400b:808::2004                    -- link: wlp1s0
+                172.217.164.196                             -- link: wlp1s0
+
+-- Information acquired via protocol DNS in 1.5ms.
+-- Data is authenticated: no
+www.duckduckgo.com: 40.89.244.232                           -- link: wlp1s0
+                    (duckduckgo.com)
+
+-- Information acquired via protocol DNS in 13.9ms.
+-- Data is authenticated: no
+www.youtube.com: 2607:f8b0:400b:808::200e                   -- link: wlp1s0
+                 2607:f8b0:400b:809::200e                   -- link: wlp1s0
+                 2607:f8b0:400b:80f::200e                   -- link: wlp1s0
+                 2607:f8b0:400b:800::200e                   -- link: wlp1s0
+                 172.217.0.238                              -- link: wlp1s0
+                 172.217.1.174                              -- link: wlp1s0
+                 172.217.1.14                               -- link: wlp1s0
+                 172.217.164.206                            -- link: wlp1s0
+                 172.217.164.238                            -- link: wlp1s0
+                 (youtube-ui.l.google.com)
+
+-- Information acquired via protocol DNS in 22.9ms.
+-- Data is authenticated: no
+www.yandex.com: 77.88.55.77                                 -- link: wlp1s0
+                77.88.55.80                                 -- link: wlp1s0
+                5.255.255.80                                -- link: wlp1s0
+                5.255.255.88                                -- link: wlp1s0
+                2a02:6b8:a::a                               -- link: wlp1s0
+                (yandex.com)
+
+-- Information acquired via protocol DNS in 1.4ms.
+-- Data is authenticated: no
+www.github.com: 140.82.112.3                                -- link: wlp1s0
+                (github.com)
+
+-- Information acquired via protocol DNS in 18.3ms.
+-- Data is authenticated: no
+fiximate.fixtrading.org: 54.152.228.30                      -- link: wlp1s0
+
+-- Information acquired via protocol DNS in 4.5ms.
+-- Data is authenticated: no
+www.amazon.com: 13.33.165.10                                -- link: wlp1s0
+                (d3ag4hukkh62yn.cloudfront.net)
+
+-- Information acquired via protocol DNS in 147.1ms.
+-- Data is authenticated: no
+www.amazon.ca: 13.224.34.190                                -- link: wlp1s0
+               (djz1tax43w9ei.cloudfront.net)
+
+-- Information acquired via protocol DNS in 100.9ms.
+-- Data is authenticated: no
+www.amazon.fr: 104.88.157.206                               -- link: wlp1s0
+               (e15318.e22.akamaiedge.net)
+
+-- Information acquired via protocol DNS in 191.5ms.
+-- Data is authenticated: no
+arxiv.org: 128.84.21.199                                    -- link: wlp1s0
+
+-- Information acquired via protocol DNS in 136.2ms.
+-- Data is authenticated: no
+www.desjardins.com: 23.34.219.102                           -- link: wlp1s0
+                    (e5564.x.akamaiedge.net)
+
+-- Information acquired via protocol DNS in 18.4ms.
+-- Data is authenticated: no
+www.ca-cmds.fr: 158.191.172.95                              -- link: wlp1s0
+
+-- Information acquired via protocol DNS in 5.6ms.
+-- Data is authenticated: no
+www.labanquepostale.fr: 185.16.252.161                      -- link: wlp1s0
+
+-- Information acquired via protocol DNS in 4.4ms.
+-- Data is authenticated: no
+aws.amazon.com: 99.86.59.73                                 -- link: wlp1s0
+                (dr49lng3n1n2s.cloudfront.net)
+
+-- Information acquired via protocol DNS in 29.5ms.
+-- Data is authenticated: no
+www.mailgun.com: 2600:9000:2132:e800:b:b0de:6300:93a1       -- link: wlp1s0
+                 2600:9000:2132:5800:b:b0de:6300:93a1       -- link: wlp1s0
+                 2600:9000:2132:9800:b:b0de:6300:93a1       -- link: wlp1s0
+                 2600:9000:2132:0:b:b0de:6300:93a1          -- link: wlp1s0
+                 2600:9000:2132:c600:b:b0de:6300:93a1       -- link: wlp1s0
+                 2600:9000:2132:ce00:b:b0de:6300:93a1       -- link: wlp1s0
+                 2600:9000:2132:a400:b:b0de:6300:93a1       -- link: wlp1s0
+                 2600:9000:2132:800:b:b0de:6300:93a1        -- link: wlp1s0
+                 13.224.38.5                                -- link: wlp1s0
+                 13.224.38.43                               -- link: wlp1s0
+                 13.224.38.96                               -- link: wlp1s0
+                 13.224.38.112                              -- link: wlp1s0
+                 (d1yxl812wp8970.cloudfront.net)
+
+-- Information acquired via protocol DNS in 140.8ms.
+-- Data is authenticated: no
+www.mailjet.com: 104.199.110.216                            -- link: wlp1s0
+
+-- Information acquired via protocol DNS in 4.6ms.
+-- Data is authenticated: no
+www.sendinblue.com: 2606:4700::6811:90c                     -- link: wlp1s0
+                    2606:4700::6811:a0c                     -- link: wlp1s0
+                    104.17.9.12                             -- link: wlp1s0
+                    104.17.10.12                            -- link: wlp1s0
+
+-- Information acquired via protocol DNS in 1.4ms.
+-- Data is authenticated: no
+sendgrid.com: 167.89.115.110                                -- link: wlp1s0
+              167.89.123.61                                 -- link: wlp1s0
+              167.89.123.87                                 -- link: wlp1s0
+              167.89.115.19                                 -- link: wlp1s0
+              167.89.115.35                                 -- link: wlp1s0
+              167.89.123.103                                -- link: wlp1s0
+              167.89.115.86                                 -- link: wlp1s0
+              167.89.115.111                                -- link: wlp1s0
+              167.89.123.113                                -- link: wlp1s0
+              167.89.123.67                                 -- link: wlp1s0
+
+-- Information acquired via protocol DNS in 66.1ms.
+-- Data is authenticated: no
+www.hckrnews.com: 198.199.67.129                            -- link: wlp1s0
+                  (hckrnews.com)
+
+-- Information acquired via protocol DNS in 6.5ms.
+-- Data is authenticated: no
+www.zerohedge.com: 35.196.136.19                            -- link: wlp1s0
+                   (zerohedge.com)
+
+-- Information acquired via protocol DNS in 18.4ms.
+-- Data is authenticated: no
+www.lemonde.fr: 199.232.78.217                              -- link: wlp1s0
+                (s2.shared.global.fastly.net)
+
+-- Information acquired via protocol DNS in 20.0ms.
+-- Data is authenticated: no
+www.lapresse.ca: 13.33.167.58                               -- link: wlp1s0
+                 13.33.167.14                               -- link: wlp1s0
+                 13.33.167.41                               -- link: wlp1s0
+                 13.33.167.92                               -- link: wlp1s0
+                 (d1p0dl1amuq41n.cloudfront.net)
+
+-- Information acquired via protocol DNS in 27.2ms.
+-- Data is authenticated: no
+montrealgazette.com: 35.183.138.169                         -- link: wlp1s0
+                     3.97.25.230                            -- link: wlp1s0
+
+-- Information acquired via protocol DNS in 21.6ms.
+-- Data is authenticated: no
+www.infosva.org: 2606:4700:20::681a:9cd                     -- link: wlp1s0
+                 2606:4700:20::681a:8cd                     -- link: wlp1s0
+                 2606:4700:20::ac43:4ba4                    -- link: wlp1s0
+                 104.26.9.205                               -- link: wlp1s0
+                 104.26.8.205                               -- link: wlp1s0
+                 172.67.75.164                              -- link: wlp1s0
+
+-- Information acquired via protocol DNS in 1.7ms.
+-- Data is authenticated: no
+www.svaplus.fr: 185.22.116.82                               -- link: wlp1s0
+                (vipinfrpx001.tf1.fr)
+
+-- Information acquired via protocol DNS in 4.4ms.
+-- Data is authenticated: no
+www.zdnet.com: 199.232.77.188                               -- link: wlp1s0
+               2a04:4e42:53::444                            -- link: wlp1s0
+               (cmg.cbsi.map.fastly.net)
+
+-- Information acquired via protocol DNS in 20.4ms.
+-- Data is authenticated: no
+www.wired.com: 151.101.186.194                              -- link: wlp1s0
+               (h2.condenast.map.fastly.net)
+
+-- Information acquired via protocol DNS in 19.7ms.
+-- Data is authenticated: no
+www.cyberscoop.com: 52.21.95.133                            -- link: wlp1s0
+                    (cyberscoop.com)
+
+-- Information acquired via protocol DNS in 64.6ms.
+-- Data is authenticated: no
+www.enisa.europa.eu: 212.146.105.104                        -- link: wlp1s0
+                     2001:4d80:600::2                       -- link: wlp1s0
+
+-- Information acquired via protocol DNS in 1.6ms.
+-- Data is authenticated: no
+threatpost.com: 35.173.160.135                              -- link: wlp1s0
+
+-- Information acquired via protocol DNS in 87.0ms.
+-- Data is authenticated: no
+www.infosecurity-magazine.com: 220.242.170.82               -- link: wlp1s0
+                               (www.infosecurity-magazine.com.wtxcdn.com)
+
+-- Information acquired via protocol DNS in 27.2ms.
+-- Data is authenticated: no
+hackernoon.com: 35.224.188.159                              -- link: wlp1s0
+                104.197.241.218                             -- link: wlp1s0
+                35.193.55.160                               -- link: wlp1s0
+
+-- Information acquired via protocol DNS in 34.6ms.
+-- Data is authenticated: no
+thefreshloaf.com: 165.227.38.173                            -- link: wlp1s0
+
+-- Information acquired via protocol DNS in 81.0ms.
+-- Data is authenticated: no
+www.minoterie-bourseau.com: 54.36.91.62                     -- link: wlp1s0
+                            (minoterie-bourseau.com)
+
+-- Information acquired via protocol DNS in 182.7ms.
+-- Data is authenticated: no
+www.tube8.com: 66.254.114.239                               -- link: wlp1s0
+               (tube8.com)
+
+-- Information acquired via protocol DNS in 35.5ms.
+-- Data is authenticated: no
+www.youporn.com: 66.254.114.79                              -- link: wlp1s0
+                 (youporn.com)
+
+-- Information acquired via protocol DNS in 28.4ms.
+-- Data is authenticated: no
+www.porntube.com: 104.18.148.225                            -- link: wlp1s0
+                  104.18.147.225                            -- link: wlp1s0
+
+-- Information acquired via protocol DNS in 39.4ms.
+-- Data is authenticated: no
+www.sudouest.fr: 152.195.14.31                              -- link: wlp1s0
+                 (cs811198060.wac.edgecastcdn.net)
+
+-- Information acquired via protocol DNS in 41.7ms.
+-- Data is authenticated: no
+www.renodepot.com: 2606:4700::6811:3643                     -- link: wlp1s0
+                   2606:4700::6811:3743                     -- link: wlp1s0
+                   104.17.55.67                             -- link: wlp1s0
+                   104.17.54.67                             -- link: wlp1s0
+
+-- Information acquired via protocol DNS in 1.4ms.
+-- Data is authenticated: no
+www.rona.com: 205.178.189.129                               -- link: wlp1s0
+
+-- Information acquired via protocol DNS in 100.9ms.
+-- Data is authenticated: no
+thehill.com: 151.101.194.217                                -- link: wlp1s0
+             151.101.130.217                                -- link: wlp1s0
+             151.101.2.217                                  -- link: wlp1s0
+             151.101.66.217                                 -- link: wlp1s0
+
+-- Information acquired via protocol DNS in 21.4ms.
+-- Data is authenticated: no
+www.nytimes.com: 199.232.77.164                             -- link: wlp1s0
+                 (nytimes.map.fastly.net)
+
+-- Information acquired via protocol DNS in 23.5ms.
+-- Data is authenticated: no
+www.cnn.com: 151.101.185.67                                 -- link: wlp1s0
+             2a04:4e42:53::323                              -- link: wlp1s0
+             (turner-tls.map.fastly.net)
+
+-- Information acquired via protocol DNS in 19.3ms.
+-- Data is authenticated: no
+www.rt.com: 37.48.108.112                                   -- link: wlp1s0
+            2001:1af8:4700:b220::105                        -- link: wlp1s0
+            (wpc.en.rt.com)
+
+-- Information acquired via protocol DNS in 40.0ms.
+-- Data is authenticated: no
+www.foxnews.com: 23.34.197.109                              -- link: wlp1s0
+                 2001:4958:304:28d::1324                    -- link: wlp1s0
+                 2001:4958:304:293::1324                    -- link: wlp1s0
+                 (e4900.dsca.akamaiedge.net)
+
+-- Information acquired via protocol DNS in 19.9ms.
+-- Data is authenticated: no
+www.cnbc.com: 96.16.45.189                                  -- link: wlp1s0
+              (e3365.e12.akamaiedge.net)
+
+-- Information acquired via protocol DNS in 19.3ms.
+-- Data is authenticated: no

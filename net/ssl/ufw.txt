@@ -1,0 +1,51 @@
+-----------------------------------------------------------------------------------------------------------------
+ufw the firewall
+-----------------------------------------------------------------------------------------------------------------
+$ sudo apt-get install ufw
+$ sudo vi /etc/default/ufw
+$ sudo ufw allow ssh                      (Configure firewall and open port 22)
+$ sudo ufw allow 22/tcp
+$ sudo ufw deny ssh
+$ sudo ufw deny 22
+$ sudo ufw enable
+$ sudo ufw status verbose                 (Now check your rules:)
+$ sudo ufw show added
+$ sudo ufw show raw
+
+to bounce ufw after modifications:
+$ sudo ufw disable
+$ sudo ufw enable
+
+UFW’s defaults are to deny all incoming connections and allow all outgoing connections:
+$ sudo ufw default deny incoming
+$ sudo ufw default allow outgoing
+$ sudo vi /etc/default/ufw               (to check the impact of the above commands)
+
+https://www.cyberciti.biz/faq/howto-limiting-ssh-connections-with-ufw-on-ubuntu-debian/
+$ sudo ufw limit ssh     (Open incoming SSH but deny connections from an IP address that has attempted to initiate 6 or more connections in the last 30 seconds. )
+
+$ sudo ufw status numbered
+$ sudo ufw delete 3 
+$ sudo ufw delete 2
+
+https://www.cyberciti.biz/faq/ufw-allow-incoming-ssh-connections-from-a-specific-ip-address-subnet-on-ubuntu-debian/
+$ sudo ufw allow from {IP_ADDRESS_HERE} to any port 22  (How to allow incoming SSH from specific IP address)
+$ sudo ufw allow from 202.54.1.1 to any port 22
+
+$ sudo ufw default allow outgoing
+$ sudo ufw default deny outgoing
+$ sudo ufw allow out to 11.22.33.44 port http   # TCP 80
+$ sudo ufw allow out to 11.22.33.44 port https  # TCP 443
+$ sudo ufw allow 1000:2000/tcp
+
+---------------------------------------------------------------------------
+$ sudo ufw default deny outgoing
+$ resolvectl status                                  (Retrieve your DNS IP)
+$ sudo ufw allow out to 192.168.2.1 port 53          (Allow DNS (TCP and UDP) for only your DNS servers)
+$ resolvectl query www.lemonde.fr
+$ sudo ufw allow out to 199.232.78.217 port 443/tcp
+
+
+
+
+
