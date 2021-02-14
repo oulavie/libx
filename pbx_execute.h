@@ -42,6 +42,10 @@ std::vector<std::string> execute( const std::string& cmd_, std::ostream *oss_ = 
 template< typename T >
 void execute( const std::string& cmd_, T&& t_ )
 {
+  std::string cmd("$ ");
+  cmd += cmd_;
+  t_(cmd);
+
   std::ostringstream ostrstr;
   ostrstr << cmd_.data();
   ostrstr << " 2>&1";
