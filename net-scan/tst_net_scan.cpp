@@ -1,5 +1,6 @@
 
 #include "pbx_net_scan.h"
+#include <pbx_time.h>
 
 #include <assert.h>
 #include <iomanip>
@@ -11,79 +12,159 @@ void display(const std::vector<std::string> &v_)
     std::cout << i << std::endl;
 }
 
+typedef std::pair<std::string, std::string> mac_ip_t;
+
 class db_t
 {
-  struct elem_t
+  class elem_t
   {
-    bool _open = {};
+    bool _open = true;
     std::string _mac = {};
     std::string _ip = {};
+    std::string _time_in = pbx::now();
+    std::string _time_out = {};
+    uint32_t _time_in_int = pbx::now_as_int();
+    uint32_t _time_out_int = 0xFFFFFFFF;
+
+  public:
+    elem_t(const std::string mac_, const std::string ip_) : _mac(mac_), _ip(ip_)
+    {
+    }
+    bool is_open() const
+    {
+      return _open;
+    }
+    const std::string &get_mac() const
+    {
+      return _mac;
+    }
+    const std::string &get_ip() const
+    {
+      return _ip;
+    }
+    void set_close()
+    {
+      _open = false;
+      _time_out = pbx::now();
+      _time_out_int = pbx::now_as_int();
+    }
+    void set_open(const std::string ip_)
+    {
+      _open = true;
+      _ip = ip_;
+      _time_in = pbx::now();
+      _time_in_int = pbx::now_as_int();
+    }
+    void display(std::ostringstream &oss_) const
+    {
+      oss_ << _open;
+      oss_ << " " << std::setw(15) << _ip;
+      oss_ << " " << _mac;
+      if (_time_in_int < _time_out_int)
+      {
+        oss_ << " " << _time_in;
+        if (!_time_out.empty())
+          oss_ << " " << _time_out;
+      }
+      else
+      {
+        oss_ << " " << _time_out;
+        oss_ << " " << _time_in;
+      }
+    }
   };
   std::vector<elem_t> _elems = {};
-  std::map<std::string, int> _elem_keys = {};
+  std::map<std::string, size_t> _mac_keys = {};
+  std::map<std::string, size_t> _ip_keys = {};
 
 public:
-  void add_mac_ip(const std::string mac_, const std::string ip_)
+  bool add_mac_ip(const std::vector<mac_ip_t> &v_)
   {
-    auto foundmac = _elem_keys.find(mac_);
-    auto foundip = _elem_keys.find(ip_);
-    if (foundmac == _elem_keys.end() && foundip == _elem_keys.end()) // MAC and IP are new (0,0)
+    bool changed = {};
+    // 1) on verifie que tous les elements open dans db sont dans la nouvelle liste
+    //    sinon, on les ferme (ils ne sont plus vu par le scan de nmap)
+    for (auto &elem : _elems)
+    {
+      if (elem.is_open())
+      {
+        auto found =
+            std::find_if(v_.begin(), v_.end(), [&elem](const mac_ip_t &e_) { return e_.first == elem.get_mac(); });
+        if (found == v_.end())
+          elem.set_close();
+      }
+    }
+    for (auto &macip : v_)
+    {
+      changed |= add_mac_ip(macip.first, macip.second);
+    }
+    return changed;
+  }
+
+private:
+  bool add_mac_ip(const std::string mac_, const std::string ip_)
+  {
+    bool rtn = true;
+    auto foundmac = _mac_keys.find(mac_);
+    auto foundip = _ip_keys.find(ip_);
+    if (foundmac != _mac_keys.end() && foundip != _ip_keys.end()) // MAC and IP are both know (1,1)
+    {
+      size_t idx_mac = foundmac->second;
+      size_t idx_ip = foundip->second;
+      if (idx_mac == idx_ip && _elems[idx_mac].is_open())
+        rtn = false;
+      else
+      {
+        _ip_keys[ip_] = idx_mac;
+        _elems[idx_mac].set_open(ip_); // update IP
+      }
+    }
+    else if (foundmac == _mac_keys.end()) // MAC is new (0,0) (0,1)
     {
       size_t idx = _elems.size();
-      _elems.push_back(elem_t());
-
-      _elem_keys.insert({mac_, idx});
-      _elem_keys.insert({ip_, idx});
-
-      _elems[idx]._open = true;
-      _elems[idx]._mac = mac_;
-      _elems[idx]._ip = ip_;
+      _elems.push_back(elem_t(mac_, ip_));
+      _mac_keys.insert({mac_, idx});
+      if (foundip == _ip_keys.end())
+        _ip_keys.insert({ip_, idx});
+      else
+        _ip_keys[ip_] = idx; // update IP
     }
-    else if (foundmac != _elem_keys.end()) // MAC is know (1,0) (1,1)
+    else if (foundmac != _mac_keys.end()) // MAC is know (1,0)
     {
       size_t idx = foundmac->second;
-      if (foundip == _elem_keys.end())
-        _elem_keys.insert({ip_, idx});
+      if (foundip == _ip_keys.end())
+        _ip_keys.insert({ip_, idx});
       else
-        _elem_keys[ip_] = idx;
+        _ip_keys[ip_] = idx;
 
-      _elems[idx]._open = true;
-      assert(_elems[idx]._mac == mac_);
-      _elems[idx]._ip = ip_; // update IP
-    }
-    else if (foundmac == _elem_keys.end()) // MAC is new (0,1)
-    {
-      size_t idx = _elems.size();
-      _elems.push_back(elem_t());
-
-      _elem_keys.insert({mac_, idx});
-      _elem_keys[ip_] = idx;
-
-      _elems[idx]._open = true;
-      _elems[idx]._mac = mac_;
-      _elems[idx]._ip = ip_;
+      _elems[idx].set_open(ip_); // update IP
+      assert(_elems[idx].get_mac() == mac_);
     }
     else
     {
       // should never be here
     }
+    return rtn;
   }
+
+public:
   std::string display() const
   {
     int idx(0);
     std::string rtn;
     for (auto &iter : _elems)
     {
-      if (!iter._open)
+      if (!iter.is_open())
         rtn += display(iter);
     }
     for (auto &iter : _elems)
     {
-      if (iter._open)
+      if (iter.is_open())
         rtn += display(iter, ++idx);
     }
     return rtn;
   }
+
+private:
   std::string display(const elem_t &elem_, int idx = 0) const
   {
     std::ostringstream oss;
@@ -91,11 +172,69 @@ public:
       oss << std::setw(2) << idx << " : ";
     else
       oss << "     ";
-    oss << elem_._open;
-    oss << " " << std::setw(15) << elem_._ip;
-    oss << " " << elem_._mac;
+    elem_.display(oss);
     oss << std::endl;
     return oss.str();
+  }
+};
+
+class scan_t
+{
+  db_t _db = {};
+
+public:
+  db_t &get_db()
+  {
+    return _db;
+  }
+  bool scan()
+  {
+    bool changed = {};
+    /*
+    $ sudo nmap -sn 192.168.0.1/24
+    Nmap scan report for _gateway (192.168.0.1)
+    Host is up (0.0061s latency).
+    MAC Address: B8:EC:A3:CF:69:C6 (Zyxel Communications)
+
+    Nmap scan report for 192.168.0.106
+    Host is up (0.061s latency).
+    MAC Address: 70:CE:8C:46:66:88 (Samsung Electronics)
+    */
+    auto sub_net = pbx::execute_command("sudo nmap -sn 192.168.0.1/24"); // routeur same as -sP (No port scan)
+    std::vector<mac_ip_t> macips;
+    bool bip = {}, bmac = {};
+    std::string ip, mac;
+    for (auto &iter : sub_net)
+    {
+      static const std::string ipstr("Nmap scan report for");
+      if (iter.find(ipstr) != std::string::npos)
+        std::tie(bip, ip) = pbx::get_ip_address(iter);
+      static const std::string macstr("MAC Address");
+      if (iter.find(macstr) != std::string::npos)
+        std::tie(bmac, mac) = pbx::get_mac_address(iter);
+      if (bip && bmac)
+      {
+        macips.push_back({mac, ip});
+        bip = false;
+        bmac = false;
+        ip = {};
+        mac = {};
+      }
+    }
+    changed = _db.add_mac_ip(macips);
+    return changed;
+  }
+  void display() const
+  {
+    std::cout << _db.display() << std::endl;
+  }
+  void loop()
+  {
+    while (true)
+    {
+      if( scan() )
+        display();
+    }
   }
 };
 
@@ -111,7 +250,7 @@ wlp1s0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
         TX packets 164956  bytes 147323803 (147.3 MB)
         TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
  */
-void process_ifconfig(db_t &db_, const std::vector<std::string> interfaces_,
+void process_ifconfig(std::vector<mac_ip_t> &v_, const std::vector<std::string> interfaces_,
                       const std::vector<std::string> &ifconfig_output_)
 {
   bool bip = {}, bmac = {};
@@ -137,7 +276,7 @@ void process_ifconfig(db_t &db_, const std::vector<std::string> interfaces_,
       std::tie(bmac, mac) = pbx::get_mac_address(iter);
     if (bip && bmac)
     {
-      db_.add_mac_ip(mac, ip);
+      v_.push_back({mac, ip});
       bip = false;
       bmac = false;
       ip = {};
@@ -149,8 +288,9 @@ void process_ifconfig(db_t &db_, const std::vector<std::string> interfaces_,
 //--------------------------------------------------------------------------------------------------
 int main()
 {
-  db_t db = {};
+  scan_t scanner = {};
   std::vector<std::string> interfaces;
+  std::vector<mac_ip_t> macips;
 
   std::string iprouteur("192.168.0.1");
 
@@ -197,7 +337,7 @@ int main()
    */
   auto ifconfig = pbx::execute_command("ifconfig -a");
   display(ifconfig);
-  process_ifconfig(db, interfaces, ifconfig);
+  process_ifconfig(macips, interfaces, ifconfig);
 
   std::cout << "-------------------------------------------------------------------------------" << std::endl;
   auto ip_a = pbx::execute_command("ip a");
@@ -237,7 +377,7 @@ int main()
       if (bip && bmac)
       {
         std::transform(mac.begin(), mac.end(), mac.begin(), ::toupper);
-        db.add_mac_ip(mac, ip);
+        macips.push_back({mac, ip});
       }
     }
   }
@@ -268,7 +408,7 @@ int main()
         std::tie(bmac, mac) = pbx::get_mac_address(iter);
       if (bip && bmac)
       {
-        db.add_mac_ip(mac, ip);
+        macips.push_back({mac, ip});
         bip = false;
         bmac = false;
         ip = {};
@@ -287,7 +427,9 @@ int main()
   std::cout << "stop : ";
   display(date_end);
   std::cout << "-------------------------------------------------------------------------------" << std::endl;
-  std::cout << db.display() << std::endl;
+  scanner.get_db().add_mac_ip(macips);
+  scanner.display();
+  scanner.loop();
   return 0;
 }
 
