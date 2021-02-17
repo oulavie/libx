@@ -112,6 +112,16 @@ std::tuple<bool, std::string> get_first_word(const std::string &str_)
     return {false, std::string()};
 }
 
+std::tuple<bool, std::string> get_between_parenthesis(const std::string &str_)
+{
+  const std::string regex = "\\(([^)]+)\\)";
+  auto rtn = pbx::regex_search(str_, regex);
+  if (rtn.size() > 0)
+    return {true, rtn[0]};
+  else
+    return {false, std::string()};
+}
+
 //--------------------------------------------------------------------------------------------------
 std::vector<std::string> execute_command(const std::string &cmd_)
 {
