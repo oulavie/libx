@@ -52,9 +52,65 @@ public:
     _v.push_back(t_);
     return log(args_...);
   }
+  void log( const std::vector<std::string>& v_)
+  {
+    std::ofstream log;
+    log.open(_file, std::ios_base::app);
+    log << pbx::now();
+    log << " ";
+    for (auto &iter : v_)
+      log << iter << "\n";
+    log << std::endl;
+  }
 };
 
 logger<std::string> LOG("jscan.txt");
+
+//--------------------------------------------------------------------------------------------------
+// https://www.yeahhub.com/top-30-basic-nmap-commands-beginners/
+//
+// Target Selection
+// 1   Scan a single IP  nmap 192.168.20.128   Nmap Commands
+// 2   Scan a host   nmap www.example.com  Nmap Commands
+// 3   Scan a range of IPs   nmap 192.168.20.120-128   Nmap Commands
+// 4   Scan a subnet   nmap 192.168.20.2/24  Nmap Commands
+// 5   Scan targets from Text file   nmap -iL ips.txt
+
+// Port Selection
+// 6   Scan a single port  nmap -p 22 192.168.20.128   Nmap Commands
+// 7   Scan a range of ports   nmap -p 1-100 192.168.20.128  Nmap Commands
+// 8   Scan 100 common ports   nmap -F 192.168.20.128  Nmap Commands
+// 9   Scan all ports  nmap -p- 192.168.20.128   Nmap Commands
+// 10  Specify UDP or TCP scan   nmap -p U:137,T:139 192.168.20.128  Nmap Commands
+
+// Scan Types
+// 11  Scan using TCP connect  nmap -sT 192.168.20.128   Nmap Commands
+// 12  Scan using TCP SYN scan   nmap -sS 192.168.20.128   Nmap Commands
+// 13  Scan UDP ports  nmap -sU -p 123,161,162 192.168.20.128  Nmap Commands
+// 14  Scan Selected ports (Ignore Discovery)  nmap -Pn -F 192.168.20.128
+
+//--------------------------------------------------------------------------------------------------
+// Service and OS Detection
+// 15  Detect OS and Services  nmap -A 192.168.20.128  Nmap Commands
+// 16  Standard service detection  nmap -sV 192.168.20.128   Nmap Commands
+// 17  Aggressive service detection  nmap -sV –version-intensity 5 192.168.20.128
+void host_info(const std::string mac_, const std::string ip_)
+{
+  logger<std::string> file("macs/" + mac_ + ".txt");
+  std::string cmd("sudo nmap -sL "); // Identify Hostnames
+  auto vstr = pbx::execute_command(cmd + ip_);
+  file.log( vstr);
+  cmd = "sudo nmap -O "; // OS Scanning
+  vstr = pbx::execute_command(cmd + ip_);
+  file.log( vstr);
+  cmd = "sudo nmap -A -T4 "; // Scan + OS and service detection with fast execution
+  vstr = pbx::execute_command(cmd + ip_);
+  file.log( vstr);
+  cmd = "sudo nmap -sV "; // Version Detection
+  vstr = pbx::execute_command(cmd + ip_);
+  file.log( vstr);
+  // nmap -sV --version-intensity 5 <Target>
+}
 
 void display(const std::vector<std::string> &v_)
 {
@@ -83,6 +139,7 @@ class db_t
     elem_t(const std::string mac_, const std::string ip_, const std::string &what_) : _mac(mac_), _ip(ip_), _what(what_)
     {
       LOG.log("35=D;48=", _mac, ";55=", _ip, ";52=", _time_in, ";106=", _what);
+      //host_info(mac_, ip_);
     }
     void set_close()
     {
