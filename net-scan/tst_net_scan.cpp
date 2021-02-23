@@ -7,6 +7,11 @@
 #include <iomanip>
 #include <iostream>
 
+// volga moskovskaya
+// psykko tico
+//
+// 138.229.29.250 ALTIMA TELECOM
+//
 template <typename T> void func(T t)
 {
   std::cout << t << std::endl;
@@ -52,7 +57,7 @@ public:
     _v.push_back(t_);
     return log(args_...);
   }
-  void log( const std::vector<std::string>& v_)
+  void log(const std::vector<std::string> &v_)
   {
     std::ofstream log;
     log.open(_file, std::ios_base::app);
@@ -99,16 +104,16 @@ void host_info(const std::string mac_, const std::string ip_)
   logger<std::string> file("macs/" + mac_ + ".txt");
   std::string cmd("sudo nmap -sL "); // Identify Hostnames
   auto vstr = pbx::execute_command(cmd + ip_);
-  file.log( vstr);
+  file.log(vstr);
   cmd = "sudo nmap -O "; // OS Scanning
   vstr = pbx::execute_command(cmd + ip_);
-  file.log( vstr);
+  file.log(vstr);
   cmd = "sudo nmap -A -T4 "; // Scan + OS and service detection with fast execution
   vstr = pbx::execute_command(cmd + ip_);
-  file.log( vstr);
+  file.log(vstr);
   cmd = "sudo nmap -sV "; // Version Detection
   vstr = pbx::execute_command(cmd + ip_);
-  file.log( vstr);
+  file.log(vstr);
   // nmap -sV --version-intensity 5 <Target>
 }
 
@@ -139,7 +144,7 @@ class db_t
     elem_t(const std::string mac_, const std::string ip_, const std::string &what_) : _mac(mac_), _ip(ip_), _what(what_)
     {
       LOG.log("35=D;48=", _mac, ";55=", _ip, ";52=", _time_in, ";106=", _what);
-      //host_info(mac_, ip_);
+      // host_info(mac_, ip_);
     }
     void set_close()
     {
@@ -328,8 +333,9 @@ public:
   {
     return _db;
   }
-  bool scan()
+  bool scan(const std::string &iprouter_ = "192.168.0.1")
   {
+    std::cout << "scan = " << iprouter_ << std::endl;
     bool changed = {};
     /*
     $ sudo nmap -sn 192.168.0.1/24
@@ -341,7 +347,11 @@ public:
     Host is up (0.061s latency).
     MAC Address: 70:CE:8C:46:66:88 (Samsung Electronics)
     */
-    auto sub_net = pbx::execute_command("sudo nmap -sn 192.168.0.1/24"); // routeur same as -sP (No port scan)
+    std::string cmd("sudo nmap -sn "); // routeur same as -sP (No port scan)
+    cmd += iprouter_;
+    cmd += "/24";
+    // auto sub_net = pbx::execute_command("sudo nmap -sn 192.168.0.1/24"); // routeur same as -sP (No port scan)
+    auto sub_net = pbx::execute_command(cmd); // routeur same as -sP (No port scan)
     std::vector<mac_ip_t> macips;
     bool bip = {}, bmac = {}, bwhat = {};
     std::string ip, mac, what;
@@ -372,11 +382,11 @@ public:
   {
     std::cout << _db.display() << std::endl;
   }
-  void loop()
+  void loop(const std::string& iprouter_ = "192.168.0.1")
   {
     while (true)
     {
-      if (scan())
+      if (scan(iprouter_))
         display();
     }
   }
@@ -437,7 +447,7 @@ int main()
   std::vector<std::string> interfaces;
   std::vector<mac_ip_t> macips;
 
-  std::string iprouteur("192.168.0.1");
+  std::string iprouter("192.168.0.1");
 
   auto date_begin = pbx::execute_command("date");
   display(date_begin);
@@ -499,6 +509,48 @@ int main()
   */
   auto route_n = pbx::execute_command("sudo route -n");
   display(route_n);
+  /*
+  for (const auto &it : route_n)
+  {
+    auto [bip,ip] =  pbx::get_192_168_address(it);
+    if( bip)
+    {
+      auto [bip0,ip0] = pbx::get_ip_address(it);
+      if( bip0 )
+      {
+        if( ip0 != ip)
+        {
+          iprouter = ip;
+          break;
+        }
+      }
+    }
+  }
+  */
+  std::cout << ".........................." << std::endl;
+  for (const auto &it : route_n)
+  {
+    auto ips = pbx::get_ip_addresses(it);
+    /*
+    for (const auto &it2 : ips)
+    {
+      std::cout << it2 << std::endl;
+    }
+    std::cout << ".........................." << std::endl;
+    */
+    if (ips.size() > 2)
+    {
+      auto found = ips[2].find("192.168.");
+      if (found != std::string::npos)
+      {
+        iprouter = ips[2];
+        break;
+      }
+    }
+  }
+  std::cout << "iprouter = " << iprouter << std::endl;
+
+  //return 0;
 
   std::cout << "-------------------------------------------------------------------------------" << std::endl;
   /*
@@ -540,7 +592,11 @@ int main()
   Host is up (0.061s latency).
   MAC Address: 70:CE:8C:46:66:88 (Samsung Electronics)
   */
-  auto sub_net = pbx::execute_command("sudo nmap -sn 192.168.0.1/24"); // routeur same as -sP (No port scan)
+  std::string cmd("sudo nmap -sn ");
+  cmd += iprouter;
+  cmd += "/24";
+  // auto sub_net = pbx::execute_command("sudo nmap -sn 192.168.0.1/24"); // routeur same as -sP (No port scan)
+  auto sub_net = pbx::execute_command(cmd); // routeur same as -sP (No port scan)
   {
     display(sub_net);
     bool bip = {}, bmac = {}, bwhat = {};
@@ -579,7 +635,7 @@ int main()
   std::cout << "-------------------------------------------------------------------------------" << std::endl;
   scanner.get_db().add_mac_ip(macips);
   scanner.display();
-  scanner.loop();
+  scanner.loop(iprouter);
   return 0;
 }
 

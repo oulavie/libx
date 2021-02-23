@@ -75,6 +75,40 @@ std::pair<std::string, std::string> get_net_range(const std::string &subject_)
   return res;
 }
 
+std::vector<std::string> get_ip_addresses(const std::string &str_)
+{
+  std::vector<std::string> rtn;
+  std::pair<std::string, std::string> res;
+  const std::string regstr("((?:\\d+\\.){3}\\d+)(.*?)((?:\\d+\\.){3}\\d+)(.*?)((?:\\d+\\.){3}\\d+)");
+  auto rtn2 = pbx::regex_search(str_, regstr);
+  for (const auto &it : rtn2)
+  {
+    // To be sure you have an IP address, use :
+    static const std::string regstr2(
+        "(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)");
+    auto rtn3 = pbx::regex_search(it, regstr2);
+    if (rtn3.size() == 1)
+    {
+      rtn.push_back(it);
+    }
+  }
+  return rtn;
+}
+
+// grep -xE "(999)(\.[0-9]{1,3}){3}" file.txt
+// grep -xE "(999\.998)(\.[0-9]{1,3}){2}" file.txt
+// grep -xE "999\.998\.997\.[0-9]{1,3}" file.txt
+std::tuple<bool, std::string> get_192_168_address(const std::string &str_)
+{
+  const std::string ipRegex("(192\\.168)(\\.[0-9]{1,3}){2}");
+  auto rtn = pbx::regex_search(str_, ipRegex);
+  if (rtn.size() > 0)
+    return {true, rtn[0]};
+  else
+    return {false, std::string()};
+}
+
+// grep -xE "((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.){3}(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])" file.txt
 std::tuple<bool, std::string> get_ip_address(const std::string &str_)
 {
   // To be sure you have an IP address, use :
